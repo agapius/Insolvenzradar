@@ -14,6 +14,7 @@
 4. define additional functionality
 ### future research
 1. Win would be great for traction and and publicity
+2. prevent blocking by IP rotating (https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/)
 2. Once the Verfahren is detected, automatically generate an Email with:
   *A notice
   *Next steps
