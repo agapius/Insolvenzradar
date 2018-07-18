@@ -1,5 +1,5 @@
 # inso
-## todo
+
 ### Coding
 1. Decide b/w sqllite and mysql (sqllite might be fully sufficient)
 2. Landing page and blog posts page only accessible when logged in
@@ -12,7 +12,7 @@
 2. Maybe take her out for lunch and talk
 3. Get some beta testers
 4. define additional functionality
-## future research
+### future research
 1. Win would be great for traction and and publicity
 2. Once the Verfahren is detected, automatically generate an Email with:
   *A notice
