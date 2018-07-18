@@ -15,7 +15,8 @@
 ### future research
 1. Win would be great for traction and and publicity
 2. Once the Verfahren is detected, automatically generate an Email with:
-  *A notice
-  *Next steps
-  *Prefilled relevant documents
-  *Drafts of relevant emails that need to be sent
+
+  -A notice
+  -Next steps
+  -Prefilled relevant documents
+  -Drafts of relevant emails that need to be sent
