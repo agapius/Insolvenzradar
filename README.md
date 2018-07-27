@@ -1,4 +1,18 @@
 # inso
+  *hold all the core components for the running website
+  *creates and saves user generated insolvenzPosts
+# logic
+  *working scraper for insolvenzanzeigen.de
+  *did finish a little early and scraped only 95% - needs a reliability check
+  *core of the programm - needs to be doubled up (maybe write a second scraper independently?)
+  *have both scrapers run frequently (implement with time - Monday morning?)
+  *fill database and have main page recognize successful finds
+# email
+  *needs to be implemented
+  *what format?
+# run
+  *if executed, runs the whole program
+  *On sever/localhost execute: python3 run.py on
 
 ### Coding
 1. Decide b/w sqllite and mysql (sqllite might be fully sufficient)
