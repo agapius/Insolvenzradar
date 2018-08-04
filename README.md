@@ -6,8 +6,8 @@
   *creates and saves user generated insolvenzPosts
 # logic
   *working scraper for insolvenzanzeigen.de
-  *did finish a little early and scraped only 95% - needs a reliability check
-  *core of the programm - needs to be doubled up (maybe write a second scraper independently?)
+  *did finish a little early and scraped only 95% - needs a reliability check - catch exceptions
+  *core of the programm - needs to be doubled up 
   *have both scrapers run frequently (implement with time - Monday morning?)
   *fill database and have main page recognize successful finds
 # email
