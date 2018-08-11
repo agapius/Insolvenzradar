@@ -27,12 +27,15 @@ link_fails = []
 
 ### FUNCTIONS
 
+# timefunc returns the date of yesterday
 def timefunc():
-	time = str(datetime.date.today())
+	timedelta = datetime.timedelta(days=-1)
+	yesterday = datetime.date.today() + timedelta
+	time = str(yesterday)
+	print(time)
 	year = time[0:4]
 	month = time[5:7]
-	day = int(time[8:]) -1  ### BUG!! This is just for testing, it will NOT work a whole month
-	day = str(day)
+	day = time[8:]
 
 	return day, month, year
 
