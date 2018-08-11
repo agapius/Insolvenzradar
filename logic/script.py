@@ -4,10 +4,12 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import sqlite3
+#from flask_sqlalchemy import SQLAlchemy
+
 
 # this script is constantly running. it mainy builds on the inso.py
 
-database_location = '~/Desktop/Code/inso/inso/site.db'
+database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
 URL = 'https://www.insolvenzbekanntmachungen.de/cgi-bin/bl_suche.pl'
 
 ### REGEX PATTERNS
@@ -29,7 +31,8 @@ def timefunc():
 	time = str(datetime.date.today())
 	year = time[0:4]
 	month = time[5:7]
-	day = time[8:]
+	day = int(time[8:]) -1  ### BUG!! This is just for testing, it will NOT work a whole month
+	day = str(day)
 
 	return day, month, year
 
@@ -112,7 +115,9 @@ def get_data_from_page(URL, payload):
 		s.headers.update({'Content-Type': 'application/x-www-form-urlencoded'})
 		res = s.post(URL, data = payload)
 		soup = BeautifulSoup(res.text, "html.parser")
+		#print(soup)
 		suchergebnisse = soup.select("b li a")
+		#print(suchergebnisse[0])
 		data_from_page = []
 		for item in suchergebnisse:
 			datum, inhaber, ort, regNo, link = get_metadata(item)
@@ -130,6 +135,8 @@ def get_pages(URL, payload):
 		soup = BeautifulSoup(res.text, "html.parser")
 		pages_raw_match = re.search(pages_pattern, soup.get_text())	
 		pagesNo = int(pages_raw_match.group(2))
+		pagesNo = round(pagesNo / 100)
+		pagesNo += 1
 		return pagesNo
 
 
@@ -144,23 +151,29 @@ def insert_into_database(database_location, data_from_page):
 
 def update_database(day, month, year):
 	print('update_database')
-	payload = 'Suchfunktion=uneingeschr&Absenden=Suche+starten&Bundesland=--+Alle+Bundesl%E4nder+--&Gericht=--+Alle+Insolvenzgerichte+--&Datum1={}.{}.{}&Datum2={}.{}.{}&Name=&Sitz=&Abteilungsnr=&Registerzeichen=--&Lfdnr=&Jahreszahl=--&Registerart=--+keine+Angabe+--&select_registergericht=&Registergericht=--+keine+Angabe+--&Registernummer=&Gegenstand=--+Alle+Bekanntmachungen+innerhalb+des+Verfahrens+--&matchesperpage=10&page=1&sortedby=Datum'.format(day, month, year[2:], day, month, year[2:])
-	database_location = '../inso/site.db'
+	payload = 'Suchfunktion=uneingeschr&Absenden=Suche+starten&Bundesland=--+Alle+Bundesl%E4nder+--&Gericht=--+Alle+Insolvenzgerichte+--&Datum1={}.{}.{}&Datum2={}.{}.{}&Name=&Sitz=&Abteilungsnr=&Registerzeichen=--&Lfdnr=&Jahreszahl=--&Registerart=--+keine+Angabe+--&select_registergericht=&Registergericht=--+keine+Angabe+--&Registernummer=&Gegenstand=--+Alle+Bekanntmachungen+innerhalb+des+Verfahrens+--&matchesperpage=100&page=1&sortedby=Datum'.format(day, month, year[2:], day, month, year[2:])
+	database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
 
 	pagesNo = get_pages(URL, payload)
+	print(pagesNo)
 	page = 1 
 
 	all_data = []
 
 	while page<=pagesNo:
+
+		payload = 'Suchfunktion=uneingeschr&Absenden=Suche+starten&Bundesland=--+Alle+Bundesl%E4nder+--&Gericht=--+Alle+Insolvenzgerichte+--&Datum1={}.{}.{}&Datum2={}.{}.{}&Name=&Sitz=&Abteilungsnr=&Registerzeichen=--&Lfdnr=&Jahreszahl=--&Registerart=--+keine+Angabe+--&select_registergericht=&Registergericht=--+keine+Angabe+--&Registernummer=&Gegenstand=--+Alle+Bekanntmachungen+innerhalb+des+Verfahrens+--&matchesperpage=100&page='.format(day, month, year[2:], day, month, year[2:]) + str(page) + '&sortedby=Datum'
+		#print(payload)
 		data_from_page = get_data_from_page(URL, payload)
 		#save_data gets data_from_page in form of an array of tuples
 		insert_into_database(database_location, data_from_page)
 		#then a function (safe_data) is called, which saves the data in a mysql database
+		print(page)
+		
 		page = page + 1
 		all_data = all_data + data_from_page
 
-		#print failures to txt
+		"""#print failures to txt
 		with open('log.txt', 'a') as f:
 			f.write('regNo failures:\n')
 			for failure in regNo_fails:
@@ -175,18 +188,21 @@ def update_database(day, month, year):
 			f.write('link failures:\n')
 			for failure in link_fails:
 				f.write(failure)
-		f.close()
+		f.close()"""
 
 	return all_data
 
 def get_user_verfahren():
 	print('get_user_verfahren')
+	database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
 	connect = sqlite3.connect(database_location)
-	user = Post.query.all()
+	cursor = connect.cursor()
+	cursor.execute("SELECT * FROM post")
+	user = cursor.fetchall()
 	return user
 
 def send_mail(user, verfahren):
-	print('sending!')
+	print('MAIL SENDING!')
 
 
 ### BODY
@@ -194,16 +210,20 @@ def send_mail(user, verfahren):
 while True:
 	print('starting up')
 	log = open('log.txt', 'a')
-	log.write('Preparing for new day:' + str(datetime.date.today()))
+	log.write('Preparing for new day:' + str(datetime.date.today()) + '\n')
 	log.close()
 
 	day, month, year = timefunc()
+	print('Day' + day)
+	print('Month' + month)
+	print('Year' + year)
 
 	updates = update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
 	
 	update_counter = 0
 
 	user_verfahren = get_user_verfahren()		# looks up in the database, and returns a dictionary with key= user and value = verfahren
+	print(user_verfahren)
 
 	log = open('log.txt', 'a')
 	for user in user_verfahren:
@@ -211,9 +231,9 @@ while True:
 			if user[1] == verfahren[1]:
 				send_mail(user, verfahren)
 				update_counter += 1
-				log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
-				log.write(log_data)
+				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
+				#log.write(log_data)
 
-	log_entry = 'Finished updating. ' + update_counter + 'Mails send.' + len(updates) + 'scraped.' + str(datetime.datetime.today())
+	#log_entry = 'Finished updating. ' + str(update_counter) + 'Mails send.' + str(len(updates)) + 'scraped.' + str(datetime.datetime.today()) +'\n')
 
 	time.sleep(43200) 					        # script sleeps for 24 hourss
