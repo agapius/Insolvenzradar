@@ -2,7 +2,8 @@ import time
 import datetime
 import sqlite3
 from inso import db
-from threading import app
+from threading import Thread
+from inso import app
 
 def start_the_script(app):
 	with app.app_context():
