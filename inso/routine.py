@@ -11,8 +11,7 @@ def get_entries(date):
 	cursor.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date))
 	user = cursor.fetchall()
 	'''
-	with app.context():
-		user = db.session.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date))
+	user = db.session.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date)).fetchall()
 	return user
 
 def get_user():
@@ -23,8 +22,7 @@ def get_user():
 	cursor.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id")
 	user = cursor.fetchall()
 	'''
-	with app.context():
-		user = db.session.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id")
+	user = db.session.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id").fetchall()
 	return user
 
 def send_mail(verfahren, entry):
