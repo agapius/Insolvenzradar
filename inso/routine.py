@@ -5,7 +5,7 @@ from inso import db
 from threading import Thread
 #from inso import app
 
-def start_the_script(current_app):
+def start_the_script(app):
 	with current_app.app_context():
 		routine()
 

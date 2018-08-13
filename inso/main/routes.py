@@ -19,6 +19,6 @@ def about():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	start_thread()
+	routine.start_thread()
 
 #routine.routine()
