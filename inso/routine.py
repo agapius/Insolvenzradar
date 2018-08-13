@@ -5,6 +5,7 @@ from inso import db
 from threading import Thread
 from flask import current_app
 
+'''
 def start_the_script(app):
 	with app.app_context():
 		routine()
@@ -12,6 +13,7 @@ def start_the_script(app):
 def start_thread(app):
 	thr = Thread(target=start_the_script, args=[app])
 	thr.start()
+'''
 
 
 def get_entries(date):

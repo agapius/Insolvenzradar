@@ -20,6 +20,10 @@ def about():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	routine.start_thread(current_app)
+	with current_app.app_context():
+		routine.routine()
+
+
+	#routine.start_thread(current_app)
 
 #routine.routine()
