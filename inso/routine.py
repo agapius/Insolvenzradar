@@ -10,7 +10,7 @@ def start_the_script(app):
 		routine()
 
 def start_thread():
-	thr = Thread(target=start_the_script)
+	thr = Thread(target=start_the_script, args=[app])
 	thr.start()
 
 
