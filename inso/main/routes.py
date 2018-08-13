@@ -9,9 +9,8 @@ from threading import Thread
 
 main = Blueprint('main', __name__)
 
-def script(app):
-	with app.app_context():
-		routine.routine()
+with current_app.app_context():
+	routine.routine()
 
 
 @main.route("/")
@@ -23,14 +22,15 @@ def home():
 def about():
 	return render_template('about.html', title='About')
 
-@main.route("/startscriptnow")
+'''@main.route("/startscriptnow")
 def startscriptnow():
 	with current_app.app_context():
 		thr = Thread(target=script, args=current_app)
 		thr.start()
-	return 'Hallo'
+	return 'Hallo'''
 
-
-	#routine.start_thread(current_app)
-
-#routine.routine()
+@main.route("/startscriptnow")
+def startscriptnow():
+	with current_app.app_context:
+		routine.routine()
+	return 'Hello'
