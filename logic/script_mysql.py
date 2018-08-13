@@ -173,6 +173,8 @@ def insert_into_database(database_location, data_from_page):
 			connection.commit()
 		connection.close()
 
+
+
 def update_database(day, month, year):
 	print('update_database')
 	payload = 'Suchfunktion=uneingeschr&Absenden=Suche+starten&Bundesland=--+Alle+Bundesl%E4nder+--&Gericht=--+Alle+Insolvenzgerichte+--&Datum1={}.{}.{}&Datum2={}.{}.{}&Name=&Sitz=&Abteilungsnr=&Registerzeichen=--&Lfdnr=&Jahreszahl=--&Registerart=--+keine+Angabe+--&select_registergericht=&Registergericht=--+keine+Angabe+--&Registernummer=&Gegenstand=--+Alle+Bekanntmachungen+innerhalb+des+Verfahrens+--&matchesperpage=100&page=1&sortedby=Datum'.format(day, month, year[2:], day, month, year[2:])
