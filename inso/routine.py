@@ -3,10 +3,10 @@ import datetime
 import sqlite3
 from inso import db
 from threading import Thread
-from app import app
+from inso import current_app
 
-def start_the_script(app):
-	with app.app_context():
+def start_the_script(current_app):
+	with current_app.app_context():
 		routine()
 
 def start_thread():
