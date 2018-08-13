@@ -1,6 +1,7 @@
 from flask import render_template, request, Blueprint
 from inso.models import Post
 from inso import routine
+from flask import current_app
 #from inso import routine
 #import time
 
@@ -19,6 +20,6 @@ def about():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	routine.start_thread()
+	routine.start_thread(current_app)
 
 #routine.routine()
