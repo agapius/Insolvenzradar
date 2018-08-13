@@ -48,8 +48,8 @@ link_fails = []
 # timefunc returns the date of yesterday
 def timefunc():
 	timedelta = datetime.timedelta(days=-1)
-	yesterday = datetime.date.today() + timedelta
-	#yesterday = datetime.date.today()
+	#yesterday = datetime.date.today() + timedelta
+	yesterday = datetime.date.today()
 	time = str(yesterday)
 	print(time)
 	year = time[0:4]
