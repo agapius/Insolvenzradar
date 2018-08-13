@@ -184,12 +184,12 @@ def get_pages(URL, payload):
 
 def insert_into_database(database_location, data_from_page):
 	print('insert_into_database')
-	mydb = mysql.connector.connect(host='localhost', user='inso', database='1insovenzrecht')
-	cur= mydb.cursor()
-	for verfahren in data_from_page:
-		cur.execute("INSERT INTO inso VALUES (?,?,?,?,?,?)", verfahren)
-		mydb.commit()
-	mydb.close()
+	try:
+		with connection.cursor() as cursor:
+			for verfahren in data_from_page:
+				cursor.execute("INSERT INTO inso VALUES (?,?,?,?,?,?)", verfahren)
+			connection.commit()
+	connection.close()
 
 def update_database(day, month, year):
 	print('update_database')
@@ -240,10 +240,12 @@ def update_database(day, month, year):
 def get_user_verfahren():
 	print('get_user_verfahren')
 	#database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
-	mydb = mysql.connector.connect(host='localhost', user='inso', database='1nsovenzrecht')
-	cursor = mydb.cursor()
-	cursor.execute("SELECT * FROM post")
-	user = cursor.fetchall()
+	try:
+		with connection.cursor() as cursor:
+			
+			cursor.execute("SELECT * FROM post")
+			user = cursor.fetchone()
+		connection.close()
 	return user
 
 def send_mail(user, verfahren):
