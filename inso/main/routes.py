@@ -25,8 +25,9 @@ def about():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	thr = Thread(target=script, args=current_app)
-	thr.start()
+	with current_app.app_context():
+		thr = Thread(target=script, args=current_app)
+		thr.start()
 	return 'Hallo'
 
 
