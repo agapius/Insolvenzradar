@@ -283,11 +283,12 @@ while True:
 
 	user_verfahren = get_user_verfahren()		# looks up in the database, and returns a dictionary with key= user and value = verfahren
 	print(user_verfahren)
+	print(updates)
 
 	log = open('log.txt', 'a')
 	for user in user_verfahren:
 		for verfahren in updates: 
-			if user[1] == verfahren[1]:
+			if user['title'] == verfahren[1]:
 				send_mail(user, verfahren)
 				update_counter += 1
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
