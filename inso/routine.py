@@ -4,7 +4,7 @@ import sqlite3
 from inso import db
 from threading import app
 
-def start_the_script(app)
+start_the_script(app):
 	with app.app_context():
 		routine()
 
