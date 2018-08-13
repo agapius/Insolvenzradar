@@ -9,7 +9,7 @@ from threading import Thread
 
 main = Blueprint('main', __name__)
 
-with app.app_context():
+with current_app.app_context():
 	routine.routine()
 
 
