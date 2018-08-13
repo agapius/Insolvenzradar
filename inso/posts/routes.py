@@ -52,5 +52,5 @@ def delete_post(post_id):
 		abort(403)
 	db.session.delete(post)
 	db.session.commit()
-	flash('Your Post has been deleted', 'success')
+	flash('Your Post has been deleted.', 'danger')
 	return redirect(url_for('users.insolvenzen'))
