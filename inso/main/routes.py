@@ -22,6 +22,7 @@ def about():
 def startscriptnow():
 	with current_app.app_context():
 		routine.routine()
+	return 'Hallo'
 
 
 	#routine.start_thread(current_app)

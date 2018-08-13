@@ -42,6 +42,7 @@ def send_mail(verfahren, entry):
 	msg = Message('Neue Bekanntmachung im Verfahren {}'.format(user[0]), sender='insolvenz.app@gmail.com', recipients=user[1])
 	msg.body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user[2], user[0], entry[5])
 	mail.send(msg)
+	print('Mail send')
 
 def get_yesterday():
 	timedelta = datetime.timedelta(days=-1)
@@ -59,10 +60,10 @@ def routine():
 		print(yesterday)
 
 		new_entires = get_entries(yesterday)
-		print(new_entires)
+		#print(new_entires)
 
 		user = get_user()
-		print(user)
+		#print(user)
 
 		for user in user:
 			for entry in new_entires:
