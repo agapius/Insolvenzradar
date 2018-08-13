@@ -232,7 +232,10 @@ def get_user_verfahren():
 			cursor.execute("SELECT * FROM post")
 			user = cursor.fetchone()
 		connection.close()
-	return user
+		return user
+	except: 
+		print('error')
+	
 
 def send_mail(user, verfahren):
 	gmail_user = 'insolvenz.app@gmail.com'
