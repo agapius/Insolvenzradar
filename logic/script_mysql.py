@@ -172,6 +172,8 @@ def insert_into_database(database_location, data_from_page):
 				cursor.execute("INSERT INTO inso VALUES (?,?,?,?,?,?)", verfahren)
 			connection.commit()
 		connection.close()
+	except:
+		print('error')
 
 
 
