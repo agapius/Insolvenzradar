@@ -70,3 +70,5 @@ def routine():
 
 		time.sleep(43200)
 		#time.sleep(40000) 
+
+	return True 
