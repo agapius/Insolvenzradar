@@ -3,7 +3,7 @@ import datetime
 import sqlite3
 
 def get_entries(date):
-	database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
+	database_location = '/Users/inso/inso/inso/site.db'
 	connect = sqlite3.connect(database_location)
 	cursor = connect.cursor()
 	cursor.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date))
@@ -11,7 +11,7 @@ def get_entries(date):
 	return user
 
 def get_user():
-	database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
+	database_location = 'Users/inso/inso/inso/site.db'
 	connect = sqlite3.connect(database_location)
 	cursor = connect.cursor()
 	cursor.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id")

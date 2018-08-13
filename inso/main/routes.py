@@ -1,9 +1,11 @@
 from flask import render_template, request, Blueprint
 from inso.models import Post
+from inso import routine
+
 
 main = Blueprint('main', __name__)
 
-
+routine.routine()
 
 
 @main.route("/")

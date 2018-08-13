@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from inso.config import Config
-import routine
+#from routine import routine
 
 
 db = SQLAlchemy()
@@ -15,7 +15,7 @@ login_manager.login_message_category = 'info'
 
 mail=Mail()
 
-routine()
+#routine()
 
 def create_app(config_class=Config):
 	app = Flask(__name__)
