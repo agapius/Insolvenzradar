@@ -1,21 +1,28 @@
 import time
 import datetime
 import sqlite3
+from inso import db
 
 def get_entries(date):
+	'''
 	database_location = '/Users/inso/inso/inso/site.db'
 	connect = sqlite3.connect(database_location)
 	cursor = connect.cursor()
 	cursor.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date))
 	user = cursor.fetchall()
+	'''
+	user = db.session.execute("SELECT * FROM inso WHERE datum=\'{}\'".format(date))
 	return user
 
 def get_user():
+	'''
 	database_location = 'Users/inso/inso/inso/site.db'
 	connect = sqlite3.connect(database_location)
 	cursor = connect.cursor()
 	cursor.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id")
 	user = cursor.fetchall()
+	'''
+	user = db.session.execute("SELECT title, email, username FROM post p, user u ON p.user_id=u.id")
 	return user
 
 def send_mail(verfahren, entry):
