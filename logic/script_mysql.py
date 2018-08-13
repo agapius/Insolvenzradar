@@ -164,7 +164,7 @@ def get_pages(URL, payload):
 		return pagesNo
 
 
-def insert_into_database(database_location, data_from_page):
+def insert_into_database(data_from_page):
 	print('insert_into_database')
 	try:
 		with connection.cursor() as cursor:
@@ -197,7 +197,7 @@ def update_database(day, month, year):
 		#print(payload)
 		data_from_page = get_data_from_page(URL, payload)
 		#save_data gets data_from_page in form of an array of tuples
-		insert_into_database(database_location, data_from_page)
+		insert_into_database(data_from_page)
 		#then a function (safe_data) is called, which saves the data in a mysql database
 		print(page)
 		
