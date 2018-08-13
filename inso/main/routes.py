@@ -2,11 +2,16 @@ from flask import render_template, request, Blueprint
 from inso.models import Post
 from inso import routine
 from flask import current_app
+from threading import Thread
 #from inso import routine
 #import time
 
 
 main = Blueprint('main', __name__)
+
+def script(app):
+	with app.app_context():
+		routine.routine()
 
 
 @main.route("/")
@@ -20,8 +25,8 @@ def about():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	with current_app.app_context():
-		routine.routine()
+	thr = Thread(target=script, args=current_app)
+	thr.start()
 	return 'Hallo'
 
 
