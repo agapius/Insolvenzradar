@@ -18,7 +18,7 @@ def about():
 	return render_template('about.html', title='About')
 
 @main.route("/startscriptnow")
-def routine.startscriptnow():
+def startscriptnow():
 	start_thread()
 
 #routine.routine()
