@@ -230,9 +230,10 @@ def get_user_verfahren():
 		with connection.cursor() as cursor:
 			
 			cursor.execute("SELECT * FROM post")
-			user = cursor.fetchone()
+			user = cursor.fetchall()
+			return user
 		connection.close()
-		return user
+		
 	except: 
 		print('error')
 	
