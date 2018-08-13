@@ -220,10 +220,12 @@ def get_user_verfahren():
 	return user
 
 def send_mail(user, verfahren):
-	sent_from = ''
-	to = ''
-	subject = ''
-	body = ''
+	gmail_user = 'insolvenz.app@gmail.com'
+	gmail_pw = 'insolvenz'
+	sent_from = 'insolvenz.app@gmail.com'
+	to = user[1]
+	subject = 'Neue bekanntmachung: {}'.format(user[0])
+	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user[2], user[0], verfahren[5])
 
 	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
 
