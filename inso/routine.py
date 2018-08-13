@@ -51,27 +51,27 @@ def get_yesterday():
 	return str(yesterday)
 
 def routine():
-	while True: 
+	#while True: 
 
 		#time.sleep(3200)
 
 		#yesterday = get_yesterday()
-		yesterday = datetime.date.today()
-		print(yesterday)
+	yesterday = datetime.date.today()
+	print(yesterday)
 
-		new_entires = get_entries(yesterday)
-		#print(new_entires)
+	new_entires = get_entries(yesterday)
+	#print(new_entires)
 
-		user = get_user()
-		#print(user)
+	user = get_user()
+	#print(user)
 
-		for user in user:
-			for entry in new_entires:
-				if user[1] == entry[1]:
-					send_mail(user, entry)
-					print(verfahren)
+	for user in user:
+		for entry in new_entires:
+			if user[1] == entry[1]:
+				send_mail(user, entry)
+				print(verfahren)
 
-		time.sleep(43200)
-		#time.sleep(40000) 
+	time.sleep(43200)
+	#time.sleep(40000) 
 
 	return True 
