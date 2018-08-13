@@ -4,13 +4,14 @@ import sqlite3
 from inso import db
 from threading import app
 
-def start_the_script(app)
+def start_the_script(app):
 	with app.app_context():
 		routine()
 
 def start_thread():
 	thr = Thread(target=start_the_script)
 	thr.start()
+
 
 def get_entries(date):
 	'''
