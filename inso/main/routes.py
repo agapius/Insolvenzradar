@@ -31,6 +31,6 @@ def startscriptnow():
 
 @main.route("/startscriptnow")
 def startscriptnow():
-	with current_app.():
+	with current_app():
 		routine.routine()
 	return 'Hello'

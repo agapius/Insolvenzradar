@@ -56,7 +56,7 @@ def routine():
 		#time.sleep(3200)
 
 		#yesterday = get_yesterday()
-	with current_app.app_context:
+	with current_app.app_context():
 		yesterday = datetime.date.today()
 		print(yesterday)
 
