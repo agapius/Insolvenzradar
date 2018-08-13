@@ -1,7 +1,7 @@
 from flask import render_template, request, Blueprint
 from inso.models import Post
-from inso import routine
-import time
+#from inso import routine
+#import time
 
 
 main = Blueprint('main', __name__)
@@ -16,5 +16,4 @@ def home():
 def about():
 	return render_template('about.html', title='About')
 
-time.sleep(20)
-routine.routine()
+#routine.routine()
