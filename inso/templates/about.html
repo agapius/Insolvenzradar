@@ -1,17 +1,48 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div class="jumbotron">
-		<h1>Schritt 1</h1>
-		Dies ist eine erste Beta-Version unserer Insolvenzapp.
-		Sie können einzelne Insolvenzen abbonieren und sich 
-		vollautomatisch informieren lassen, sobald Insolvenzen 
-		mit der relevanten Verfahrensnummer veröffentlicht werden.
-	</div>
-	<div class="jumbotron">
-		<h1>Schritt 2</h1>
-		Dies ist eine erste Beta-Version unserer Insolvenzapp.
-		Sie können einzelne Insolvenzen abbonieren und sich 
-		vollautomatisch informieren lassen, sobald Insolvenzen 
-		mit der relevanten Verfahrensnummer veröffentlicht werden.
-	</div>
+	<div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" src="{{ url_for('static', filename='howto/'+'howto1.png') }}" alt="howto2">
+    <div class="card-body">
+      <h5 class="card-title">Schritt 1</h5>
+      <p class="card-text">Im ersten Schritt wird unter "Register" ein persönlicher Account erstellt.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{{ url_for('static', filename='howto/'+'howto2.png') }}" alt="howto3">
+    <div class="card-body">
+      <h5 class="card-title">Schritt 2</h5>
+      <p class="card-text">Im zweiten Schritt wird ganz einfach unter "New Post" eine neue Entscheidung aboniert.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
+<p>
+<div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" src="{{ url_for('static', filename='howto/'+'howto3.png') }}" alt="howto3">
+    <div class="card-body">
+      <h5 class="card-title">Schritt 3</h5>
+      <p class="card-text">Daraufhin erhält man unter "Meine Insolvenzen" eine Übersicht aller abbonierter Registernummern.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{{ url_for('static', filename='howto/'+'howto2.png') }}" alt="howto3">
+    <div class="card-body">
+      <h5 class="card-title">Schritt 4</h5>
+      <p class="card-text">Sobald es Neuigkeiten hinsichtlich einer Registernummer gibt, bekommt man eine Emailbenachrichtigung mit allen relevanten Dokumenten für das weitere Vorgehen.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>
 {% endblock content %}
