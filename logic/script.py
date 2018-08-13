@@ -31,6 +31,7 @@ link_fails = []
 def timefunc():
 	timedelta = datetime.timedelta(days=-1)
 	yesterday = datetime.date.today() + timedelta
+	#yesterday = datetime.date.today()
 	time = str(yesterday)
 	print(time)
 	year = time[0:4]
@@ -137,6 +138,8 @@ def get_pages(URL, payload):
 		res = s.post(URL, data = payload)
 		soup = BeautifulSoup(res.text, "html.parser")
 		pages_raw_match = re.search(pages_pattern, soup.get_text())	
+		if pages_raw_match is None:
+			return False
 		pagesNo = int(pages_raw_match.group(2))
 		pagesNo = round(pagesNo / 100)
 		pagesNo += 1
@@ -158,6 +161,8 @@ def update_database(day, month, year):
 	database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
 
 	pagesNo = get_pages(URL, payload)
+	if pagesNo == False:
+		return False
 	print(pagesNo)
 	page = 1 
 
@@ -222,7 +227,11 @@ while True:
 	print('Year' + year)
 
 	updates = update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
-	
+	if updates is False:
+		print('nothing found today') 
+		time.sleep(43200)
+		continue
+
 	update_counter = 0
 
 	user_verfahren = get_user_verfahren()		# looks up in the database, and returns a dictionary with key= user and value = verfahren
