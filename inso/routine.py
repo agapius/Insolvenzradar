@@ -3,14 +3,14 @@ import datetime
 import sqlite3
 from inso import db
 from threading import Thread
-from inso import app
+from flask import current_app
 
 def start_the_script(app):
 	with app.app_context():
 		routine()
 
 def start_thread():
-	thr = Thread(target=start_the_script, args=[app])
+	thr = Thread(target=start_the_script, args=[current_app])
 	thr.start()
 
 
