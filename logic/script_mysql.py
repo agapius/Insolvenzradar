@@ -229,7 +229,7 @@ def get_user_verfahren():
 	try:
 		with connection.cursor() as cursor:
 			
-			cursor.execute("SELECT * FROM post")
+			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id")
 			user = cursor.fetchall()
 			return user
 		connection.close()
@@ -242,7 +242,7 @@ def send_mail(user, verfahren):
 	gmail_user = 'insolvenz.app@gmail.com'
 	gmail_pw = 'insolvenz'
 	sent_from = 'insolvenz.app@gmail.com'
-	to = user[1]
+	to = user['email']
 	subject = 'Neue bekanntmachung: {}'.format(user[0])
 	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user[2], user[0], verfahren[5])
 
@@ -283,7 +283,7 @@ while True:
 
 	user_verfahren = get_user_verfahren()		# looks up in the database, and returns a dictionary with key= user and value = verfahren
 	print(user_verfahren)
-	print(updates)
+
 
 	log = open('log.txt', 'a')
 	for user in user_verfahren:
