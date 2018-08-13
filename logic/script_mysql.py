@@ -4,12 +4,22 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import mysql.connector
-#from flask_sqlalchemy import SQLAlchemy
+import smtplib
 
 # this script is constantly running. it mainy builds on the inso.py
 
 #database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
 URL = 'https://www.insolvenzbekanntmachungen.de/cgi-bin/bl_suche.pl'
+gmail_user = 'insolvenz.app@gmail.com'
+gmail_pw = 'insolvenz'
+
+### EMAIL CLIENT
+
+'''try: 
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.login(gmail_user, gmail_pw)
+except:
+	print('something went wrong')'''
 
 ### REGEX PATTERNS
 
@@ -210,7 +220,23 @@ def get_user_verfahren():
 	return user
 
 def send_mail(user, verfahren):
-	print('MAIL SENDING!')
+	sent_from = ''
+	to = ''
+	subject = ''
+	body = ''
+
+	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
+
+	try: 
+		sever = smtplib.SMTP_SLL('smtp.gmail.com', 587)
+		sever.ehlo()
+		sever.login(gmail_user, gmail_pw)
+		sever.sendmail(sent_from, to, email_text)
+		sever.close()
+		print('Email send')
+	except:
+		print('something went from')
+
 
 
 ### BODY
