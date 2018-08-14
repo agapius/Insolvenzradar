@@ -249,11 +249,12 @@ def send_mail(user, verfahren):
 	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
 
 	try: 
-		sever = smtplib.SMTP_SLL('smtp.gmail.com', 587)
-		sever.ehlo()
-		sever.login(gmail_user, gmail_pw)
-		sever.sendmail(sent_from, to, email_text)
-		sever.close()
+		server = smtplib.SMTP('smtp.gmail.com', 587)
+		server.connect('smtp.gmail.com', 587)
+		server.ehlo()
+		server.login(gmail_user, gmail_pw)
+		server.sendmail(sent_from, to, email_text)
+		server.close()
 		print('Email send')
 	except:
 		print('something went wrong')
