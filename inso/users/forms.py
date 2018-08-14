@@ -7,58 +7,58 @@ from inso.models import User
 
 
 class RegistrationForm(FlaskForm):
-	username = StringField('Username',
+	username = StringField('Benutzername',
 						   validators=[DataRequired(), Length(min=2, max=20)])
 	email = StringField('Email',
 						validators=[DataRequired(), Email()])
-	password = PasswordField('Password', validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm Password',
+	password = PasswordField('Passwort', validators=[DataRequired()])
+	confirm_password = PasswordField('Passwort bestätigen',
 									 validators=[DataRequired(), EqualTo('password')])
-	submit = SubmitField('Sign Up')
+	submit = SubmitField('Anmelden')
 
 	def validate_username(self, username):
 		user = User.query.filter_by(username=username.data).first()
 		if user:
-			raise ValidationError('That username is taken. Please choose a different one.')
+			raise ValidationError('Dieser Benutzername ist leider schon vergeben. Bitte wählen Sie einen anderen.')
 
 	def validate_email(self, email):
 		user = User.query.filter_by(email=email.data).first()
 		if user:
-			raise ValidationError('That email is taken. Please choose a different one.')
+			raise ValidationError('Diese Email ist bereits vergeben. Bitte wählen Sie eine andere.')
 
 
 class LoginForm(FlaskForm):
 	email = StringField('Email',
 						validators=[DataRequired(), Email()])
-	password = PasswordField('Password', validators=[DataRequired()])
-	remember = BooleanField('Remember Me')
-	submit = SubmitField('Login')
+	password = PasswordField('Passwort', validators=[DataRequired()])
+	remember = BooleanField('Angemeldet bleiben')
+	submit = SubmitField('Anmelden')
 
 
 class UpdateAccountForm(FlaskForm):
-	username = StringField('Username',
+	username = StringField('Benutzername',
 						   validators=[DataRequired(), Length(min=2, max=20)])
 	email = StringField('Email',
 						validators=[DataRequired(), Email()])
-	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+	picture = FileField('Neues Profilfoto', validators=[FileAllowed(['jpg', 'png'])])
 	submit = SubmitField('Update')
 
 	def validate_username(self, username):
 		if username.data != current_user.username:
 			user = User.query.filter_by(username=username.data).first()
 			if user:
-				raise ValidationError('That username is taken. Please choose a different one.')
+				raise ValidationError('Dieser Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen.')
 
 	def validate_email(self, email):
 		if email.data != current_user.email:
 			user = User.query.filter_by(email=email.data).first()
 			if user:
-				raise ValidationError('That email is taken. Please choose a different one.')
+				raise ValidationError('Diese Email ist bereits im System. Bitte wählen Sie eine andere.')
 
 class RequestResetForm(FlaskForm):
 	email = StringField('Email',
 						validators=[DataRequired(), Email()])
-	submit = SubmitField('request Password Reset')
+	submit = SubmitField('Neues Passwort anfordern')
 
 	def validate_email(self, email):
 		user = User.query.filter_by(email=email.data).first()
@@ -67,7 +67,7 @@ class RequestResetForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
-	password = PasswordField('Password', validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm Password',
+	password = PasswordField('Passwort', validators=[DataRequired()])
+	confirm_password = PasswordField('Passwort bestätigen',
 									 validators=[DataRequired(), EqualTo('password')])
-	submit = SubmitField('Reset Password')
+	submit = SubmitField('Passwort zurücksetzen')

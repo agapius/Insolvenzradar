@@ -26,7 +26,7 @@
             <path d="M40,105 C10,140 110,140 80,105 L80,105 L70,111 L60,105 L50,111 L40,105" fill="#fff" />
 </svg>
 			<fieldset class="form-group">
-				<legend class="boarder-bottom mb-4">Log In</legend>
+				<legend class="boarder-bottom mb-4">Anmelden</legend>
 				<div class="form-group">
 					{{ form.email.label(class="form-control-label")}}
 					{% if form.email.errors %}
@@ -61,14 +61,14 @@
 			<div class="form-group">
 				{{ form.submit(class="btn btn-outline-info") }}
 				<small class="text-muted ml-2">
-					<a href="{{ url_for('users.reset_request') }}">Forgot Password?</a>
+					<a href="{{ url_for('users.reset_request') }}">Passwort vergessen?</a>
 				</small>
 			</div>
 		</form>
 	</div>
 	<div class="border-top pt-3">
 		<small class="text-muted">
-			Need an Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up Now!</a>
+			Noch nicht registriert? <a class="ml-2" href="{{ url_for('users.register') }}">Jetzt anmelden!</a>
 		</small>
 	</div>
 	<script src="{{ url_for('static', filename='script.js') }}"></script>
