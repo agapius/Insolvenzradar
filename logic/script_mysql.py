@@ -243,8 +243,8 @@ def send_mail(user, verfahren):
 	gmail_pw = 'insolvenz'
 	sent_from = 'insolvenz.app@gmail.com'
 	to = user['email']
-	subject = 'Neue bekanntmachung: {}'.format(user[0])
-	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user[2], user[0], verfahren[5])
+	subject = 'Neue bekanntmachung: {}'.format(user['title'])
+	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
 	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
 
