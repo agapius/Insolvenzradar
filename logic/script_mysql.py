@@ -256,7 +256,7 @@ def send_mail(user, verfahren):
 		sever.close()
 		print('Email send')
 	except:
-		print('something went from')
+		print('something went wrong')
 
 
 
