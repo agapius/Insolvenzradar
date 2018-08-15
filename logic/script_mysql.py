@@ -173,7 +173,9 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				cursor.execute("INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (?,?,?,?,?,?,?)", verfahren)
+				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES ({},{},{},{},{},{})".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
+				print(query)
+				cursor.execute(query)
 			connection.commit()
 		connection.close()
 	except:
@@ -248,7 +250,7 @@ def send_mail(user, verfahren):
 	sent_from = 'insolvenz.app@gmail.com'
 	to = user['email']
 	subject = 'Neue bekanntmachung: {}'.format(user['title'])
-	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user['username'], user['title'], verfahren[5])
+	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
 	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
 
@@ -293,9 +295,10 @@ while True:
 	#log = open('log.txt', 'a')
 	for user in user_verfahren:
 		for verfahren in updates: 
-			if user['title'] == verfahren[1]:
+			if user['title'] == verfahren[0]:
 				send_mail(user, verfahren)
 				update_counter += 1
+				print(update_counter)
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
 				#log.write(log_data)
 
