@@ -115,6 +115,9 @@ def get_link(item):
 		link_fails.append(item)
 		return None
 
+def get_full_string(item):
+	return item.get_text(strip=True)
+
 
 def get_metadata(item):
 	datum = get_date(item)
@@ -122,7 +125,8 @@ def get_metadata(item):
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
-	return datum, inhaber, ort, regNo, link
+	full_string = get_full_string(item)
+	return datum, inhaber, ort, regNo, link, full_string
 
 
 def get_bekanntmachung(link):
@@ -142,9 +146,9 @@ def get_data_from_page(URL, payload):
 		#print(suchergebnisse[0])
 		data_from_page = []
 		for item in suchergebnisse:
-			datum, inhaber, ort, regNo, link = get_metadata(item)
-			rowID = None
-			data_from_page.append((rowID, regNo, datum, inhaber, ort, link))
+			datum, inhaber, ort, regNo, link, full_string = get_metadata(item)
+			#rowID = None
+			data_from_page.append((regNo, datum, inhaber, ort, link, full_string))
 			#bekanntmachung = get_bekanntmachung(link)
 	return data_from_page
 
@@ -169,7 +173,9 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				cursor.execute("INSERT INTO inso VALUES (?,?,?,?,?,?)", verfahren)
+				query = "\'INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')\'".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
+				print(query)
+				cursor.execute(query)
 			connection.commit()
 		connection.close()
 	except:
@@ -244,9 +250,9 @@ def send_mail(user, verfahren):
 	sent_from = 'insolvenz.app@gmail.com'
 	to = user['email']
 	subject = 'Neue bekanntmachung: {}'.format(user['title'])
-	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Link dazu: {}'.format(user['username'], user['title'], verfahren[5])
+	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
-	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
+	email_text = 'From: {} \nTo: {} \nSubject: {} \n {}'.format(sent_from, to, subject, body)
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -286,12 +292,13 @@ while True:
 	print(user_verfahren)
 
 
-	log = open('log.txt', 'a')
+	#log = open('log.txt', 'a')
 	for user in user_verfahren:
 		for verfahren in updates: 
-			if user['title'] == verfahren[1]:
+			if user['title'] == verfahren[0]:
 				send_mail(user, verfahren)
 				update_counter += 1
+				print(update_counter)
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
 				#log.write(log_data)
 
