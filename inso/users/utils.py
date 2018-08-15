@@ -1,7 +1,7 @@
 import os
 import secrets
 from PIL import Image
-from flask import url_for, current_app
+from flask import url_for, current_app, render_template
 from flask_mail import Message
 from inso import mail
 
@@ -24,9 +24,10 @@ def send_reset_email(user):
 	token = user.get_reset_token()
 	msg = Message('Password Reset Request', sender='insolvenz.app@gmail.com', recipients=[user.email])
 	msg.body = f'''Um das Passwort zurückzusetzen, besuchen Sie bitte folgenden link:
-{url_for('users.reset_token', token=token, _external=True)}
-Sollten Sie kein neues Passwort angefordert haben, können Sie diese Email einfach ignorieren.
-'''
+	{url_for('users.reset_token', token=token, _external=True)}
+	Sollten Sie kein neues Passwort angefordert haben, können Sie diese Email einfach ignorieren.
+	'''
+	msg.html = render_template('email_pw.html')
 	mail.send(msg)
 
 
