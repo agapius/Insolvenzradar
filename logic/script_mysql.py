@@ -257,7 +257,7 @@ def send_mail(user, verfahren):
 	subject = 'Neue bekanntmachung: {}'.format(user['title'])
 	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
-	email_text = 'From: {} \nTo: {} \nSubject: {} \n {}'.format(sent_from, to, subject, body)
+	email_text = 'From: {} \nTo: {} \nSubject: {} \n\n {}'.format(sent_from, to, subject, body)
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
