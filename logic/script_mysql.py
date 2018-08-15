@@ -177,9 +177,9 @@ def insert_into_database(data_from_page):
 				print(query)
 				cursor.execute(query)
 			connection.commit()
-		connection.close()
+		#connection.close()
 	except:
-		print('error')
+		print('error: could not insert into database')
 
 
 
@@ -237,11 +237,10 @@ def get_user_verfahren():
 			
 			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id")
 			user = cursor.fetchall()
+			#connection.close()
 			return user
-		connection.close()
-		
 	except: 
-		print('error')
+		print('error: could not get user')
 	
 
 def send_mail(user, verfahren):
