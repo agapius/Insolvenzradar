@@ -173,7 +173,7 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
+				query = "\'INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')\'".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
 				print(query)
 				cursor.execute(query)
 			connection.commit()
@@ -252,7 +252,7 @@ def send_mail(user, verfahren):
 	subject = 'Neue bekanntmachung: {}'.format(user['title'])
 	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
-	email_text = 'From: {} \n To: {} \n Subject: {} \n {}'.format(sent_from, to, subject, body)
+	email_text = 'From: {} \nTo: {} \nSubject: {} \n {}'.format(sent_from, to, subject, body)
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
