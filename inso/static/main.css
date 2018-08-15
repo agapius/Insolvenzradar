@@ -35,6 +35,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+.footer .footer-item {
+  color: #cbd5db;
+}
+
+.footer .footer-item:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;

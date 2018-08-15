@@ -18,4 +18,8 @@ def home():
 def about():
 	return render_template('about.html', title='About')
 
+@main.route("/impressum")
+def impressum():
+	return render_template('impressum.html', title='Impressum')
+
 
