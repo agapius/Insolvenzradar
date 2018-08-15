@@ -19,7 +19,7 @@ def register():
 		user = User(username=form.username.data, email=form.email.data, password=hashed_password)
 		db.session.add(user)
 		db.session.commit()
-		flash('Your account has been created! You are now able to log in', 'success')
+		flash('Ihr Benutzerkonto wurde erstellt! Sie können sich nun anmelden', 'success')
 		return redirect(url_for('users.login'))
 	return render_template('register.html', title='Register', form=form)
 
@@ -36,7 +36,7 @@ def login():
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('users.insolvenzen'))
 		else:
-			flash('Login Unsuccessful. Please check email and password', 'danger')
+			flash('Anmeldung fehlgeschlagen. Bitte prüfen Sie Email und Passwort.', 'danger')
 	return render_template('login.html', title='Login', form=form)
 
 
@@ -64,7 +64,7 @@ def account():
 		current_user.username = form.username.data
 		current_user.email = form.email.data
 		db.session.commit()
-		flash('Your Account has been updated', 'success')
+		flash('Ihr Profil wurde aktualisiert!', 'success')
 		return redirect(url_for('users.account'))
 	elif request.method == 'GET':
 		form.username.data = current_user.username
@@ -109,7 +109,7 @@ def reset_token(token):
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 		user.password = hashed_password
 		db.session.commit()
-		flash('Your Password has been updated! You are now able to log in', 'success')
+		flash('Ihr Passwort wurde aktualisiert! Sie können sich nun anmelden', 'success')
 		return redirect(url_for('users.login'))
 	return render_template('reset_token.html', title='Reset Password', form=form)
 

@@ -23,9 +23,9 @@ def save_picture(form_picture):
 def send_reset_email(user):
 	token = user.get_reset_token()
 	msg = Message('Password Reset Request', sender='insolvenz.app@gmail.com', recipients=[user.email])
-	msg.body = f'''To reset your Password, visit the following link:
+	msg.body = f'''Um das Passwort zurückzusetzen, besuchen Sie bitte folgenden link:
 {url_for('users.reset_token', token=token, _external=True)}
-If you did not make this request, simply ignore this Email and no changes will be made.
+Sollten Sie kein neues Passwort angefordert haben, können Sie diese Email einfach ignorieren.
 '''
 	mail.send(msg)
 
