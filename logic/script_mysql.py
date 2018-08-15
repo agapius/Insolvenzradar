@@ -115,6 +115,9 @@ def get_link(item):
 		link_fails.append(item)
 		return None
 
+def get_full_string(item):
+	return item.get_text(strip=True)
+
 
 def get_metadata(item):
 	datum = get_date(item)
@@ -122,7 +125,8 @@ def get_metadata(item):
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
-	return datum, inhaber, ort, regNo, link
+	full_string = 
+	return datum, inhaber, ort, regNo, link, full_string
 
 
 def get_bekanntmachung(link):
@@ -142,9 +146,9 @@ def get_data_from_page(URL, payload):
 		#print(suchergebnisse[0])
 		data_from_page = []
 		for item in suchergebnisse:
-			datum, inhaber, ort, regNo, link = get_metadata(item)
-			rowID = None
-			data_from_page.append((rowID, regNo, datum, inhaber, ort, link))
+			datum, inhaber, ort, regNo, link, full_string = get_metadata(item)
+			#rowID = None
+			data_from_page.append((regNo, datum, inhaber, ort, link, full_string))
 			#bekanntmachung = get_bekanntmachung(link)
 	return data_from_page
 
@@ -169,7 +173,7 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				cursor.execute("INSERT INTO inso VALUES (?,?,?,?,?,?)", verfahren)
+				cursor.execute("INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (?,?,?,?,?,?,?)", verfahren)
 			connection.commit()
 		connection.close()
 	except:
@@ -286,7 +290,7 @@ while True:
 	print(user_verfahren)
 
 
-	log = open('log.txt', 'a')
+	#log = open('log.txt', 'a')
 	for user in user_verfahren:
 		for verfahren in updates: 
 			if user['title'] == verfahren[1]:
