@@ -173,13 +173,16 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				query = "\'INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')\'".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
+				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
 				print(query)
 				cursor.execute(query)
 			connection.commit()
-		connection.close()
+		#connection.close()
 	except:
-		print('error')
+		print('error: could not insert into database')
+		log = open('log.txt', 'a')
+		log.write('!Inserting into database failed' + str(datetime.date.today()))
+		log.close()
 
 
 
@@ -237,11 +240,13 @@ def get_user_verfahren():
 			
 			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id")
 			user = cursor.fetchall()
+			#connection.close()
 			return user
-		connection.close()
-		
 	except: 
-		print('error')
+		print('error: could not get user')
+		log = open('log.txt', 'a')
+		log.write('!Fechting user failed' + str(datetime.date.today()))
+		log.close()
 	
 
 def send_mail(user, verfahren):
@@ -252,19 +257,25 @@ def send_mail(user, verfahren):
 	subject = 'Neue bekanntmachung: {}'.format(user['title'])
 	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
-	email_text = 'From: {} \nTo: {} \nSubject: {} \n {}'.format(sent_from, to, subject, body)
+	email_text = 'From: {} \nTo: {} \nSubject: {} \n\n {}'.format(sent_from, to, subject, body)
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
 		server.connect('smtp.gmail.com', 587)
 		server.ehlo()
+		server.starttls()
 		server.login(gmail_user, gmail_pw)
 		server.sendmail(sent_from, to, email_text)
 		server.close()
 		print('Email send')
+		log = open('log.txt', 'a')
+		log.write('Email send to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
+		log.close
 	except:
 		print('something went wrong')
-
+		log = open('log.txt', 'a')
+		log.write('!Email sending failed: to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
+		log.close()
 
 
 ### BODY
@@ -274,6 +285,7 @@ while True:
 	log = open('log.txt', 'a')
 	log.write('Preparing for new day:' + str(datetime.date.today()) + '\n')
 	log.close()
+	
 
 	day, month, year = timefunc()
 	print('Day' + day)
@@ -283,6 +295,8 @@ while True:
 	updates = update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
 	if updates is False:
 		print('nothing found today') 
+		log.write('Nothing found today. Closing down.' + str(datetime.date.today()))
+		log.close()
 		time.sleep(43200)
 		continue
 
@@ -302,6 +316,7 @@ while True:
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
 				#log.write(log_data)
 
-	#log_entry = 'Finished updating. ' + str(update_counter) + 'Mails send.' + str(len(updates)) + 'scraped.' + str(datetime.datetime.today()) +'\n')
-
+	log = open('log.txt', 'a')
+	log.write('Finished for today. Send {} emails'.format(str(update_counter)) + str(datetime.date.today()))
+	log.close()
 	time.sleep(43200) 					        # script sleeps for 24 hourss
