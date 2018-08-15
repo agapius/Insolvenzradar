@@ -125,7 +125,7 @@ def get_metadata(item):
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
-	full_string = 
+	full_string = get_full_string(item)
 	return datum, inhaber, ort, regNo, link, full_string
 
 
