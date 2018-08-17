@@ -265,11 +265,11 @@ def send_mail(user, verfahren):
 		server.ehlo()
 		server.starttls()
 		server.login(gmail_user, gmail_pw)
-		server.sendmail(sent_from, to, email_text)
+		#server.sendmail(sent_from, to, email_text)
 		server.close()
 		print('Email send')
 		log = open('log.txt', 'a')
-		log.write('Email send to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
+		log.write('Email NOT YET send to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
 		log.close
 	except:
 		print('something went wrong')
