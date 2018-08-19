@@ -295,8 +295,8 @@ while True:
 	updates = update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
 	if updates is False:
 		print('nothing found today') 
-		log.write('Nothing found today. Closing down.' + str(datetime.date.today()))
-		log.close()
+		#log.write('Nothing found today. Closing down.' + str(datetime.date.today()))
+		#log.close()
 		time.sleep(43200)
 		continue
 
