@@ -18,12 +18,12 @@
   *On sever/localhost execute: python3 run.py on
 
 ### Coding
-1. Decide b/w sqllite and mysql (sqllite might be fully sufficient)
-2. Landing page and blog posts page only accessible when logged in
-3. Blog posts = Abbonierte Insolvenzrechtsentscheidungen
-4. Incorporate Scraping engine, connect it to database and update it regularly
-5. Regularly compare abbonierte Insolvenzverfahren with database (frequency?)
-6. Decide on a logic regarding posts(=abbonierte Verfahren) in case the Verfahren comes up
+1. Regularly compare abbonierte Insolvenzverfahren with database (frequency?)
+2. Scraper muss auch Verfahrensinhalt scrapen
+3. Email an Kunde: Verfahrensupdate muss gestyled werden
+4. Wie können wir die email über smtplib abschicken
+5. python script muss stringent im Hintergrund laufen
+
 ### Social
 1. Talk to Schoch about the Wettbewerb and get contact details to secretary
 2. Maybe take her out for lunch and talk
