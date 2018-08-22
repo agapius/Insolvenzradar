@@ -64,6 +64,7 @@ def get_ort(item):
 	beschreibung_raw_match = re.split(datum_pattern, item.get_text(strip=True))	
 	beschreibung = beschreibung_raw_match[4]
 	text = re.split(",",beschreibung)
+	print(text)
 	if re.search(gesellschaften_pattern, text[0].lower()): 				#wenn gesellschaft, zweites komma
 		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
 			ort = text[1].strip() +text[2]
