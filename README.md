@@ -10,9 +10,6 @@
   *core of the programm - needs to be doubled up 
   *have both scrapers run frequently (implement with time - Monday morning?)
   *fill database and have main page recognize successful finds
-# email
-  *needs to be implemented
-  *what format?
 # run
   *if executed, runs the whole program
   *On sever/localhost execute: python3 run.py on
@@ -26,9 +23,8 @@
 
 ### Social
 1. Talk to Schoch about the Wettbewerb and get contact details to secretary
-2. Maybe take her out for lunch and talk
-3. Get some beta testers
-4. define additional functionality
+2. define additional functionality
+
 ### future research
 1. Win would be great for traction and and publicity
 2. prevent blocking by IP rotating (https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/)
