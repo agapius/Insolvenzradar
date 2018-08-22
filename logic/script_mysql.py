@@ -175,8 +175,8 @@ def insert_into_database(data_from_page):
 				cursor.execute(query)
 			connection.commit()
 		#connection.close()
-	except:
-		print('error: could not insert into database')
+	except Exception as e:
+		print(e)
 		log = open('log.txt', 'a')
 		log.write('!Inserting into database failed' + str(datetime.date.today()))
 		log.close()
