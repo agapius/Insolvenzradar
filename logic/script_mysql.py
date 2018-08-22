@@ -22,13 +22,6 @@ URL = 'https://www.insolvenzbekanntmachungen.de/cgi-bin/bl_suche.pl'
 gmail_user = 'insolvenz.app@gmail.com'
 gmail_pw = 'insolvenz'
 
-### EMAIL CLIENT
-
-'''try: 
-	server = smtplib.SMTP('smtp.gmail.com', 587)
-	server.login(gmail_user, gmail_pw)
-except:
-	print('something went wrong')'''
 
 ### REGEX PATTERNS
 
@@ -125,6 +118,7 @@ def get_metadata(item):
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
+	bekanntmachung = get_bekanntmachung(link)
 	full_string = get_full_string(item)
 	return datum, inhaber, ort, regNo, link, full_string
 
@@ -186,7 +180,7 @@ def insert_into_database(data_from_page):
 
 
 
-def update_database(day, month, year):
+def scrape_and_update_database(day, month, year):
 	print('update_database')
 	payload = 'Suchfunktion=uneingeschr&Absenden=Suche+starten&Bundesland=--+Alle+Bundesl%E4nder+--&Gericht=--+Alle+Insolvenzgerichte+--&Datum1={}.{}.{}&Datum2={}.{}.{}&Name=&Sitz=&Abteilungsnr=&Registerzeichen=--&Lfdnr=&Jahreszahl=--&Registerart=--+keine+Angabe+--&select_registergericht=&Registergericht=--+keine+Angabe+--&Registernummer=&Gegenstand=--+Alle+Bekanntmachungen+innerhalb+des+Verfahrens+--&matchesperpage=100&page=1&sortedby=Datum'.format(day, month, year[2:], day, month, year[2:])
 	#database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
@@ -238,14 +232,14 @@ def get_user_verfahren():
 	try:
 		with connection.cursor() as cursor:
 			
-			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id")
+			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id") 		#select title,username,email
 			user = cursor.fetchall()
-			#connection.close()
-			return user
+			connection.close()
+			return user 																#returns a list with all users and their respective verfahren
 	except: 
 		print('error: could not get user')
 		log = open('log.txt', 'a')
-		log.write('!Fechting user failed' + str(datetime.date.today()))
+		log.write('!Fechting user failed' + str(datetime.date.today()) + '\n')
 		log.close()
 	
 
@@ -292,25 +286,24 @@ while True:
 	print('Month' + month)
 	print('Year' + year)
 
-	updates = update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
+	updates = scrape_and_update_database(day, month, year)		# this scrapes all bekanntmachungen after latest bekanntmachung, inserts them in database, and returns the data for analysis
 	if updates is False:
 		print('nothing found today') 
-		#log.write('Nothing found today. Closing down.' + str(datetime.date.today()))
-		#log.close()
+		log = open('log.txt', 'a')
+		log.write('Nothing found today. Closing down.' + str(datetime.date.today()) + '\n')
+		log.close()
 		time.sleep(43200)
 		continue
 
 	update_counter = 0
 
-	user_verfahren = get_user_verfahren()		# looks up in the database, and returns a dictionary with key= user and value = verfahren
-	print(user_verfahren)
-
+	user_verfahren = get_user_verfahren()		# gets all users from database
 
 	#log = open('log.txt', 'a')
 	for user in user_verfahren:
 		for verfahren in updates: 
 			if user['title'] == verfahren[0]:
-				send_mail(user, verfahren)
+				#send_mail(user, verfahren)
 				update_counter += 1
 				print(update_counter)
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
