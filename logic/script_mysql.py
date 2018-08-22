@@ -148,6 +148,7 @@ def get_data_from_page(URL, payload):
 			soup = BeautifulSoup(res.text, "html.parser")
 			bekanntmachung = soup.body.get_text(strip=True)
 			bekanntmachung = str(bekanntmachung)
+			bekanntmachung = bekanntmachung.replace('"', "'")
 			data_from_page.append((regNo, datum, inhaber, ort, link, full_string, bekanntmachung))
 			#bekanntmachung = get_bekanntmachung(link)
 	return data_from_page
@@ -173,7 +174,7 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string, bekanntmachung) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5], verfahren[6])
+				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string, bekanntmachung) VALUES (\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\")".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5], verfahren[6])
 				#print(query)
 				try:
 					cursor.execute(query)
