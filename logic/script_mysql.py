@@ -144,7 +144,7 @@ def get_data_from_page(URL, payload):
 			#rowID = None
 			res = s.get(link)
 			soup = BeautifulSoup(res.text, "html.parser")
-			bekanntmachung = soup.body.get_text()
+			bekanntmachung = soup.body.get_text(strip=True)
 			bekanntmachung = str(bekanntmachung)
 			data_from_page.append((regNo, datum, inhaber, ort, link, full_string, bekanntmachung))
 			#bekanntmachung = get_bekanntmachung(link)
