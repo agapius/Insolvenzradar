@@ -172,7 +172,7 @@ def insert_into_database(data_from_page):
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
 				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string, bekanntmachung) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5], verfahren[6])
-				print(query)
+				#print(query)
 				cursor.execute(query)
 			connection.commit()
 		#connection.close()
