@@ -20,6 +20,7 @@
 3. Email an Kunde: Verfahrensupdate muss gestyled werden
 4. Wie können wir die email über smtplib abschicken
 5. python script muss stringent im Hintergrund laufen
+6. export clrear text passwords to environment variables! 
 
 ### Social
 1. Talk to Schoch about the Wettbewerb and get contact details to secretary
