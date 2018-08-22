@@ -28,7 +28,7 @@ gmail_pw = 'insolvenz'
 link_pattern = "\('(.*?)'\)"
 datum_pattern = "(\d\d\d\d)-(\d\d)-(\d\d)"
 gesellschaften_pattern = "(gmbh)|(ag)|(mbh)|(projektgesellschaft)|(ug)|(gesellschaft)|(ohg)|(gbr)|(kgaa)|(eg)"
-regNo_pattern = "\d*((\w|.).(IN|IK).(\d+\/\d+))"
+regNo_pattern = "(\d+ |)(IN|IK|IE).(\d+\/\d+)"
 street_pattern = "(straße)|(strasse)"
 pages_pattern = "(wurden).(\d+).(Treffer)"
 #Fails:
