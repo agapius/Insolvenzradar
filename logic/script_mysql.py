@@ -27,7 +27,7 @@ gmail_pw = 'insolvenz'
 
 link_pattern = "\('(.*?)'\)"
 datum_pattern = "(\d\d\d\d)-(\d\d)-(\d\d)"
-gesellschaften_pattern = "(gmbh)|(ag)|(mbh)|(projektgesellschaft)|(ug)|(gesellschaft)"
+gesellschaften_pattern = "(gmbh)|(ag)|(mbh)|(projektgesellschaft)|(ug)|(gesellschaft)|(ohg)|(gbr)|(kgaa)|(eg)"
 regNo_pattern = "\d*((\w|.).(IN|IK).(\d+\/\d+))"
 street_pattern = "(straße)|(strasse)"
 pages_pattern = "(wurden).(\d+).(Treffer)"
@@ -85,6 +85,8 @@ def get_inhaber(item):
 		inhaber = text[0]
 	else:
 		inhaber = text[0]+text[1]
+		if len(inhaber) > 100:
+			inhaber = inhaber[:100]
 	return inhaber
 
 
