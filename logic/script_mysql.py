@@ -76,7 +76,7 @@ def get_ort(item):
 			if text[2].strip().lower() in orte:
 				ort = text[2].strip() 
 			else:
-				ort = 'not_found'
+				ort = text[0]				#puts in the regno for debugging
 				ort_fails.append(text)
 	else:																#wenn keine gesellschaft, drittes komma
 		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
@@ -94,10 +94,10 @@ def get_ort(item):
 					if ort in orte:
 						ort = text[3].strip()
 					else:
-						ort = 'not_found'
+						ort = text[0]				#puts in the regno for debugging
 						ort_fails.append(text)
 				except:
-					ort = 'not_found'
+					ort = text[0]				#puts in the regno for debugging
 					ort_fails.append(text)
 	return ort.replace("'", r"\'")
 
