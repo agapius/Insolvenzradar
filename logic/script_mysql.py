@@ -88,11 +88,14 @@ def get_ort(item):
 				ort = text[1].strip()
 			if text[2].strip().lower() in orte:
 				ort = text[2].strip()
-			try:	
-				ort = text[3].strip()
-			except:
-				ort = 'not_found'
-				ort_fails.append(text)
+			else:
+				try:	
+					ort = text[3].strip().lower()
+					if ort in orte:
+						ort = text[3].strip()
+					else:
+						ort = 'not_found'
+						ort_fails.append(text)
 
 
 	return ort.replace("'", r"\'")
