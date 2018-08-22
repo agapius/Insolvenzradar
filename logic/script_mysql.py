@@ -237,7 +237,7 @@ def get_user_verfahren():
 			
 			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id") 		#select title,username,email
 			user = cursor.fetchall()
-			connection.close()
+			#connection.close()
 			return user 																#returns a list with all users and their respective verfahren
 	except: 
 		print('error: could not get user')
