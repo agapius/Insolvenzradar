@@ -64,16 +64,16 @@ def get_ort(item):
 	beschreibung_raw_match = re.split(datum_pattern, item.get_text(strip=True))	
 	beschreibung = beschreibung_raw_match[4]
 	text = re.split(",",beschreibung)
-	if re.search(gesellschaften_pattern, text[0].lower()):
+	if re.search(gesellschaften_pattern, text[0].lower()): 				#wenn gesellschaft, zweites komma
 		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
 			ort = text[1].strip() +text[2]
 		else:
 			ort = text[1].strip() 
-	else:
-		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
+	else:																#wenn keine gesellschaft, drittes komma
+		if re.search(street_pattern, text[2].strip(), re.IGNORECASE):
 			ort = text[2].strip() + text[3]
 		else:	
-			ort = text[2].strip()
+			ort = text[3].strip()
 	return ort.replace("'", r"\'")
 
 
@@ -116,12 +116,12 @@ def get_full_string(item):
 
 
 def get_metadata(item):
+	full_string = get_full_string(item)
 	datum = get_date(item)
 	inhaber = get_inhaber(item)
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
-	full_string = get_full_string(item)
 	#bekanntmachung = get_bekanntmachung(link)
 	return datum, inhaber, ort, regNo, link, full_string
 
