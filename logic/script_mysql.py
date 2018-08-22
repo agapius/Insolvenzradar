@@ -96,8 +96,9 @@ def get_ort(item):
 					else:
 						ort = 'not_found'
 						ort_fails.append(text)
-
-
+				except:
+					ort = 'not_found'
+					ort_fails.append(text)
 	return ort.replace("'", r"\'")
 
 
