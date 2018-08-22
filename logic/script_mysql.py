@@ -31,6 +31,7 @@ datum_pattern = "(\d\d\d\d)-(\d\d)-(\d\d)"
 gesellschaften_pattern = "(gmbh)|(ag)|(mbh)|(projektgesellschaft)|(ug)|(gesellschaft)|(ohg)|(gbr)|(kgaa)|(eg)"
 regNo_pattern = "(\d+ |)(IN|IK|IE).(\d+\/\d+)"
 street_pattern = "(straße)|(strasse)"
+no_plz_pattern = "([A-Za-z]|(ä|ü|ö))+"
 pages_pattern = "(wurden).(\d+).(Treffer)"
 #Fails:
 regNo_fails = []
@@ -71,9 +72,9 @@ def get_ort(item):
 		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
 			ort = text[1].strip() +text[2]
 		else:
-			if text[1].strip().lower() in orte:
+			if re.search(no_plz_pattern, text[1].strip().lower()) in orte:
 				ort = text[1].strip()
-			if text[2].strip().lower() in orte:
+			if re.search(no_plz_pattern, text[2].strip().lower()) in orte:
 				ort = text[2].strip() 
 			else:
 				ort = text[0]				#puts in the regno for debugging
@@ -84,13 +85,13 @@ def get_ort(item):
 		if re.search(street_pattern, text[2].strip(), re.IGNORECASE):
 			ort = text[2].strip() + text[3]
 		else:
-			if text[1].strip().lower() in orte:
+			if re.search(no_plz_pattern, text[1].strip().lower()) in orte:
 				ort = text[1].strip()
-			if text[2].strip().lower() in orte:
+			if re.search(no_plz_pattern, text[2].strip().lower()) in orte:
 				ort = text[2].strip()
 			else:
 				try:	
-					ort = text[3].strip().lower()
+					ort = re.search(no_plz_pattern, text[3].strip().lower())
 					if ort in orte:
 						ort = text[3].strip()
 					else:
