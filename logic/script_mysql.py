@@ -186,7 +186,7 @@ def insert_into_database(data_from_page):
 	except Exception as e:
 		print(e)
 		log = open('log.txt', 'a')
-		log.write('!Inserting into database failed' + str(datetime.date.today()))
+		log.write('Inserting into database failed' + str(datetime.date.today()) + '\n')
 		log.close()
 
 
