@@ -71,10 +71,16 @@ def get_ort(item):
 		else:
 			ort = text[1].strip() 
 	else:																#wenn keine gesellschaft, drittes komma
+		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
+			ort = text[1].strip() + text[2]
 		if re.search(street_pattern, text[2].strip(), re.IGNORECASE):
 			ort = text[2].strip() + text[3]
-		else:	
-			ort = text[3].strip()
+		else:
+			try:	
+				ort = text[3].strip()
+			except:
+				ort = text[1].strip()
+
 	return ort.replace("'", r"\'")
 
 
