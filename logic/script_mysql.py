@@ -119,8 +119,8 @@ def get_metadata(item):
 	regNo = get_regNo(item)
 	link = get_link(item)
 	full_string = get_full_string(item)
-	bekanntmachung = get_bekanntmachung(link)
-	return datum, inhaber, ort, regNo, link, full_string, bekanntmachung
+	#bekanntmachung = get_bekanntmachung(link)
+	return datum, inhaber, ort, regNo, link, full_string
 
 
 def get_bekanntmachung(link):
@@ -140,8 +140,11 @@ def get_data_from_page(URL, payload):
 		#print(suchergebnisse[0])
 		data_from_page = []
 		for item in suchergebnisse:
-			datum, inhaber, ort, regNo, link, full_string, bekanntmachung = get_metadata(item)
+			datum, inhaber, ort, regNo, link, full_string = get_metadata(item)
 			#rowID = None
+			res = s.get(link)
+			soup = BeautifulSoup(res.text, "html.parser")
+			bekanntmachung = soup.body.get_text()
 			data_from_page.append((regNo, datum, inhaber, ort, link, full_string, bekanntmachung))
 			#bekanntmachung = get_bekanntmachung(link)
 	return data_from_page
