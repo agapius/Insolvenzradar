@@ -111,7 +111,8 @@ def get_link(item):
 		return None
 
 def get_full_string(item):
-	return item.get_text(strip=True)
+	full_string = item.get_text(strip=True)
+	return full_string.replace("'", r"\'")
 
 
 def get_metadata(item):
