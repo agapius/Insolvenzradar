@@ -118,15 +118,15 @@ def get_metadata(item):
 	ort = get_ort(item)
 	regNo = get_regNo(item)
 	link = get_link(item)
-	bekanntmachung = get_bekanntmachung(link)
 	full_string = get_full_string(item)
-	return datum, inhaber, ort, regNo, link, full_string
+	bekanntmachung = get_bekanntmachung(link)
+	return datum, inhaber, ort, regNo, link, full_string, bekanntmachung
 
 
 def get_bekanntmachung(link):
 	res = s.get(link)
 	soup = BeautifulSoup(res.text, "html.parser")
-	return soup.body.prettify()
+	return soup.body.get_text()
 
 def get_data_from_page(URL, payload):
 	print('get_data_from_page')
@@ -140,9 +140,9 @@ def get_data_from_page(URL, payload):
 		#print(suchergebnisse[0])
 		data_from_page = []
 		for item in suchergebnisse:
-			datum, inhaber, ort, regNo, link, full_string = get_metadata(item)
+			datum, inhaber, ort, regNo, link, full_string, bekanntmachung = get_metadata(item)
 			#rowID = None
-			data_from_page.append((regNo, datum, inhaber, ort, link, full_string))
+			data_from_page.append((regNo, datum, inhaber, ort, link, full_string, bekanntmachung))
 			#bekanntmachung = get_bekanntmachung(link)
 	return data_from_page
 
@@ -167,7 +167,7 @@ def insert_into_database(data_from_page):
 	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
-				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5])
+				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string, bekanntmachung) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5], verfahren[6])
 				print(query)
 				cursor.execute(query)
 			connection.commit()
