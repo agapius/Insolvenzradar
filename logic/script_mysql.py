@@ -73,9 +73,9 @@ def get_ort(item):
 			ort = text[1].strip() +text[2]
 		else:
 			if re.search(no_plz_pattern, text[1].strip().lower()).group(0) in orte:
-				ort = re.search(no_plz_pattern, text[1].strip().lower()).group(0)
+				ort = text[1].strip()
 			if re.search(no_plz_pattern, text[2].strip().lower()).group(0) in orte:
-				ort = re.search(no_plz_pattern, text[2].strip().lower()).group(0)
+				ort = text[2].strip() 
 			else:
 				ort = text[0]				#puts in the regno for debugging
 				ort_fails.append(text)
@@ -86,9 +86,9 @@ def get_ort(item):
 			ort = text[2].strip() + text[3]
 		else:
 			if re.search(no_plz_pattern, text[1].strip().lower()).group(0) in orte:
-				ort = re.search(no_plz_pattern, text[1].strip().lower()).group(0)
+				ort = text[1].strip()
 			if re.search(no_plz_pattern, text[2].strip().lower()).group(0) in orte:
-				ort = re.search(no_plz_pattern, text[2].strip().lower()).group(0)
+				ort = text[2].strip()
 			else:
 				try:	
 					ort = re.search(no_plz_pattern, text[3].strip().lower())
