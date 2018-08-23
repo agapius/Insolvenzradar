@@ -285,14 +285,24 @@ def get_user_verfahren():
 	
 
 def send_mail(user, verfahren):
+	
 	gmail_user = 'insolvenz.app@gmail.com'
 	gmail_pw = 'insolvenz'
-	sent_from = 'insolvenz.app@gmail.com'
-	to = user['email']
-	subject = 'Neue bekanntmachung: {}'.format(user['title'])
-	body = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 
-	email_text = 'From: {} \nTo: {} \nSubject: {} \n\n {}'.format(sent_from, to, subject, body)
+	msg = EmailMessage()
+	msg['Subject'] = 'Neue Bekanntmachung: {}'.format(user['title'])
+	msg['From'] = 'insolvenz.app@gmail.com'
+	msg['To'] = user['email']
+
+	content_plain = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
+	msg.set_content(content_plain)
+	
+	#content_html = make_msgid()
+	msg.add_alternative(content_html, subtype='html')
+
+	pdf_data = open('text.pdf', 'rb')
+	pdf = pdf_data.read()
+	msg.add_attachment(pdf, maintype='pdf', subtype='pdf', filename='Bekanntmachung.pdf')
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
