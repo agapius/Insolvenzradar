@@ -63,8 +63,8 @@ def get_date(item):
 		datum_fails.append(item)
 
 
-def get_ort(item):
-	beschreibung_raw_match = re.split(datum_pattern, item.get_text(strip=True))	
+def get_ort(full_string):
+	beschreibung_raw_match = re.split(datum_pattern, full_string)	
 	beschreibung = beschreibung_raw_match[4]
 	text = re.split(",",beschreibung)
 	print(text)
@@ -145,7 +145,7 @@ def get_metadata(item):
 	full_string = get_full_string(item)
 	datum = get_date(item)
 	inhaber = get_inhaber(item)
-	ort = get_ort(item)
+	ort = get_ort(full_string)
 	regNo = get_regNo(item)
 	link = get_link(item)
 	#bekanntmachung = get_bekanntmachung(link)
