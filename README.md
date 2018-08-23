@@ -15,8 +15,8 @@
   *On sever/localhost execute: python3 run.py on
 
 ### Coding
-1. Regularly compare abbonierte Insolvenzverfahren with database (frequency?)
-2. Scraper muss auch Verfahrensinhalt scrapen
+1. Regularly compare abbonierte Insolvenzverfahren with database (daily)
+2. Scraper muss auch Verfahrensinhalt scrapen (fertig)
 3. bei der abfrage ob abbonierte registernummern in der datenbank sind, muss gefragt werden ob die abbonierten registernummern im full string/ in der registernummer enthalten sind (Problemfall bsp.: 810 IN 161/12 K-1-1)
 3. Email an Kunde: Verfahrensupdate muss gestyled werden
 4. Wie können wir die email über smtplib abschicken
