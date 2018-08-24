@@ -64,42 +64,15 @@ def get_date(item):
 
 
 def get_ort(full_string):
-	beschreibung_raw_match = re.split(datum_pattern, full_string)	
-	beschreibung = beschreibung_raw_match[4]
-	text = re.split(",",beschreibung)
-	print(text)
-	if re.search(gesellschaften_pattern, text[0].lower()): 				#wenn gesellschaft, zweites komma
-		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
-			ort = text[1].strip() +text[2]
-		else:
-			if re.search(no_plz_pattern, text[1].strip().lower()).group(0) in orte:
-				ort = text[1].strip()
-			if re.search(no_plz_pattern, text[2].strip().lower()).group(0) in orte:
-				ort = text[2].strip() 
-			else:
-				ort = text[0]				#puts in the regno for debugging
-				ort_fails.append(text)
-	else:																#wenn keine gesellschaft, drittes komma
-		if re.search(street_pattern, text[1].strip(), re.IGNORECASE):
-			ort = text[1].strip() + text[2]
-		if re.search(street_pattern, text[2].strip(), re.IGNORECASE):
-			ort = text[2].strip() + text[3]
-		else:
-			if re.search(no_plz_pattern, text[1].strip().lower()).group(0) in orte:
-				ort = text[1].strip()
-			if re.search(no_plz_pattern, text[2].strip().lower()).group(0) in orte:
-				ort = text[2].strip()
-			else:
-				try:	
-					ort = re.search(no_plz_pattern, text[3].strip().lower())
-					if ort in orte:
-						ort = text[3].strip()
-					else:
-						ort = text[0]				#puts in the regno for debugging
-						ort_fails.append(text)
-				except:
-					ort = text[0]				#puts in the regno for debugging
-					ort_fails.append(text)
+	sliced_string = re.split(",",full_string)
+	print(sliced_string)
+	for elem in sliced_string[1:]:
+		print(re.search(no_plz_pattern, elem.strip().lower()).group(0))
+		if re.search(no_plz_pattern, elem.strip().lower()).group(0) in orte:
+			ort = ort = elem.strip()
+			return ort.replace("'", r"\'")
+	ort = "not_found"
+	ort_fails.append(sliced_string)
 	return ort.replace("'", r"\'")
 
 
