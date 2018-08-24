@@ -71,10 +71,17 @@ def get_ort(full_string):
 	#print(sliced_string)
 	for elem in sliced_string[1:]:
 		#print(re.search(no_plz_pattern, elem.strip().lower()).group(0))
-		if elem:
-			if re.search(no_plz_pattern, elem.strip().lower()).group(0) in orte:
+		if not elem:
+			elem = 'not_found'
+		search = re.search(no_plz_pattern, elem.strip().lower())
+		if search: 
+			if search.group(0) in orte:
 				ort = ort = elem.strip()
 				return ort.replace("'", r"\'")
+			else:
+				return 'not_found'
+		else:
+			return 'not_found'
 	ort = "not_found"
 	ort_fails.append(sliced_string)
 	return ort.replace("'", r"\'")
