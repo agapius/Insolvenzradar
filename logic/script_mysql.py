@@ -68,12 +68,13 @@ def get_date(item):
 
 def get_ort(full_string):
 	sliced_string = re.split(",",full_string)
-	print(sliced_string)
+	#print(sliced_string)
 	for elem in sliced_string[1:]:
 		#print(re.search(no_plz_pattern, elem.strip().lower()).group(0))
-		if re.search(no_plz_pattern, elem.strip().lower()).group(0) in orte:
-			ort = ort = elem.strip()
-			return ort.replace("'", r"\'")
+		if elem:
+			if re.search(no_plz_pattern, elem.strip().lower()).group(0) in orte:
+				ort = ort = elem.strip()
+				return ort.replace("'", r"\'")
 	ort = "not_found"
 	ort_fails.append(sliced_string)
 	return ort.replace("'", r"\'")
