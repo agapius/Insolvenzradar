@@ -311,14 +311,15 @@ def send_mail(user, verfahren):
 		#server.sendmail(sent_from, to, email_text)
 		server.send_message(msg)
 		server.close()
-		print('Email send to {}').format(user['email'])
+		print('Email send to {}'.format(user['email']))
 		log = open('log.txt', 'a')
-		log.write('Email send to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today())) + '\n'
+		log.write('Email send to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today()) + '\n')
 		log.close
-	except:
+	except Exception as e:
 		print('something went wrong')
+		print(e)
 		log = open('log.txt', 'a')
-		log.write('!Email sending failed: to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today())) + '\n'
+		log.write('!Email sending failed: to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today()) + '\n')
 		log.close()
 
 
