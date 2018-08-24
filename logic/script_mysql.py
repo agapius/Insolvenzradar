@@ -225,7 +225,7 @@ def scrape_and_update_database(day, month, year):
 		#print(payload)
 		data_from_page = get_data_from_page(URL, payload)
 		#save_data gets data_from_page in form of an array of tuples
-		insert_into_database(data_from_page)
+		#insert_into_database(data_from_page)
 		#then a function (safe_data) is called, which saves the data in a mysql database
 		print(page)
 		
@@ -311,14 +311,14 @@ def send_mail(user, verfahren):
 		#server.sendmail(sent_from, to, email_text)
 		server.send_message(msg)
 		server.close()
-		print('Email send')
+		print('Email send to {}').format(user['email'])
 		log = open('log.txt', 'a')
-		log.write('Email NOT YET send to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
+		log.write('Email send to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today())) + '\n'
 		log.close
 	except:
 		print('something went wrong')
 		log = open('log.txt', 'a')
-		log.write('!Email sending failed: to {} about {}'.format(to, user['title']) + str(datetime.date.today()))
+		log.write('!Email sending failed: to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today())) + '\n'
 		log.close()
 
 
@@ -353,7 +353,7 @@ while True:
 	for user in user_verfahren:
 		for verfahren in updates: 
 			if user['title'] == verfahren[0]:
-				#send_mail(user, verfahren)
+				send_mail(user, verfahren)
 				update_counter += 1
 				print(update_counter)
 				#log_data = 'Mail send to' + user + ',' + 'verfahren' + '' + str(datetime.datetime.now())
