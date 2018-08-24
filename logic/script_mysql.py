@@ -193,14 +193,14 @@ def insert_into_database(data_from_page):
 					print(y)
 					print(query)
 					log = open('log.txt', 'a')
-					log.write('Inserting into database failed. Error: {} Query: {}'.format(y, query) + str(datetime.date.today()) + '\n')
+					log.write(str(datetime.date.today()) +' Insertion into database failed. Error: {} Query: {}'.format(y, query) + '\n')
 					log.close()
 			connection.commit()
 		#connection.close()
 	except Exception as e:
 		print(e)
 		log = open('log.txt', 'a')
-		log.write('Inserting into database failed' + str(datetime.date.today()) + '\n')
+		log.write(str(datetime.date.today()) +' Insertion into database failed (Error Nr. 2)\n')
 		log.close()
 
 
@@ -264,7 +264,7 @@ def get_user_verfahren():
 	except: 
 		print('error: could not get user')
 		log = open('log.txt', 'a')
-		log.write('!Fechting user failed' + str(datetime.date.today()) + '\n')
+		log.write(str(datetime.date.today()) + ' Fechting user failed \n')
 		log.close()
 
 def html2pdf(html_content):
@@ -313,13 +313,13 @@ def send_mail(user, verfahren):
 		server.close()
 		print('Email send to {}'.format(user['email']))
 		log = open('log.txt', 'a')
-		log.write('Email send to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today()) + '\n')
+		log.write(str(datetime.date.today()) + ' Email send to {} about {}'.format(user['email'], user['title']) + '\n')
 		log.close
 	except Exception as e:
 		print('something went wrong')
 		print(e)
 		log = open('log.txt', 'a')
-		log.write('!Email sending failed: to {} about {}'.format(user['email'], user['title']) + str(datetime.date.today()) + '\n')
+		log.write(str(datetime.date.today()) + 'E mail sending failed: to {} about {}'.format(user['email'], user['title']) + '\n')
 		log.close()
 
 
@@ -328,7 +328,8 @@ def send_mail(user, verfahren):
 while True:
 	print('starting up')
 	log = open('log.txt', 'a')
-	log.write('Preparing for new day:' + str(datetime.date.today()) + '\n')
+	log.write('\n')
+	log.write(str(datetime.date.today()) + ' Preparing for new day:' + '\n')
 	log.close()
 	
 
@@ -341,7 +342,7 @@ while True:
 	if updates is False:
 		print('nothing found today') 
 		log = open('log.txt', 'a')
-		log.write('Nothing found today. Closing down.' + str(datetime.date.today()) + '\n')
+		log.write(str(datetime.date.today()) + ' Nothing found today. Closing down.\n')
 		log.close()
 		time.sleep(43200)
 		continue
@@ -361,6 +362,6 @@ while True:
 				#log.write(log_data)
 
 	log = open('log.txt', 'a')
-	log.write('Finished for today. Send {} emails'.format(str(update_counter)) + str(datetime.date.today()))
+	log.write(str(datetime.date.today()) + ' Finished for today. Send {} emails'.format(str(update_counter)))
 	log.close()
 	time.sleep(43200) 					        # script sleeps for 24 hourss
