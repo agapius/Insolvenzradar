@@ -1,0 +1,30 @@
+ gibt es Neuigkeiten! Wir haben Ihnen die neue Bekanntmachung als PDF-Dokument angehängt.</p>
+
+                        <p>Vielen Dank, dass Sie den Insolvenzradar benutzen. Es grüßen Sie ganz herzlich, </p>
+
+                        <p><em>– Niklas & Jasper</em></p>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td class="container">
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p>Gesendet von <a href="#">Insolvenzradar</a>, Hauptstrasse 136, 10827 Berlin</p>
+                        <p><a href="mailto:insolvenzradar@gmail.com">insolvenzradar@gmail.com</a> | <a href="https://www.q-labs.io/impressum">Impressum</a></p>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -5,6 +5,9 @@ from bs4 import BeautifulSoup
 import re
 import pymysql.cursors
 import smtplib
+from email.message import EmailMessage
+import pdfkit
+
 
 # Connect to the database
 connection = pymysql.connect(host='localhost',
@@ -255,6 +258,21 @@ def get_user_verfahren():
 		log = open('log.txt', 'a')
 		log.write('!Fechting user failed' + str(datetime.date.today()) + '\n')
 		log.close()
+
+def html2pdf(html_content):
+    html_string="""<head><meta charset="utf-8"></head>"""+ html_content
+    html_string = '<html> <head><meta charset="utf-8"></head>' + html_content + '</html>'
+    pdf = pdfkit.from_string(html_string, False)
+    return pdf
+
+def get_html_content(user):
+	middle = ',</h2><p>Bei Ihrem abbonierten Verfahren mit der Verfahrensnummer '
+	beginning_data = open('vorlage1.txt', 'r')
+	beginning = beginning_data.read()
+	end_data = open('vorlage2.txt', 'r')
+	end = end_data.read()
+	string = beginning + user['username'] + middle + user['title'] + end
+	return string
 	
 
 def send_mail(user, verfahren):
@@ -270,12 +288,11 @@ def send_mail(user, verfahren):
 	content_plain = 'Hallo {}! Bei dem von Dir abbonierten Verfahren {} gibt es eine neue Bekanntmachung. Hier ist der Text dazu: {}'.format(user['username'], user['title'], verfahren[5])
 	msg.set_content(content_plain)
 	
-	#content_html = make_msgid()
+	content_html = get_html_content(user)
 	msg.add_alternative(content_html, subtype='html')
 
-	pdf_data = open('text.pdf', 'rb')
-	pdf = pdf_data.read()
-	msg.add_attachment(pdf, maintype='pdf', subtype='pdf', filename='Bekanntmachung.pdf')
+	pdf = html2pdf(verfahren[6])
+	msg.add_attachment(pdf, maintype='pdf', subtype='pdf', filename='{}.pdf'.format(user['title']))
 
 	try: 
 		server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -284,6 +301,7 @@ def send_mail(user, verfahren):
 		server.starttls()
 		server.login(gmail_user, gmail_pw)
 		#server.sendmail(sent_from, to, email_text)
+		server.send_message(msg)
 		server.close()
 		print('Email send')
 		log = open('log.txt', 'a')
