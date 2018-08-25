@@ -193,14 +193,14 @@ def insert_into_database(data_from_page):
 					print(y)
 					print(query)
 					log = open('log.txt', 'a')
-					log.write(str(datetime.date.today()) +' Insertion into database failed. Error: {} Query: {}'.format(y, query) + '\n')
+					log.write(str(datetime.date.today()) +' Insertion into database failed. Error: {} Query: {}.'.format(y, query) + '\n')
 					log.close()
 			connection.commit()
 		#connection.close()
 	except Exception as e:
 		print(e)
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) +' Insertion into database failed (Error Nr. 2)\n')
+		log.write(str(datetime.date.today()) +' Insertion into database failed (Error Nr. 2).\n')
 		log.close()
 
 
@@ -225,7 +225,7 @@ def scrape_and_update_database(day, month, year):
 		#print(payload)
 		data_from_page = get_data_from_page(URL, payload)
 		#save_data gets data_from_page in form of an array of tuples
-		#insert_into_database(data_from_page)
+		insert_into_database(data_from_page)
 		#then a function (safe_data) is called, which saves the data in a mysql database
 		print(page)
 		
@@ -264,7 +264,7 @@ def get_user_verfahren():
 	except: 
 		print('error: could not get user')
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) + ' Fechting user failed \n')
+		log.write(str(datetime.date.today()) + ' Fechting user failed. \n')
 		log.close()
 
 def html2pdf(html_content):
@@ -313,13 +313,13 @@ def send_mail(user, verfahren):
 		server.close()
 		print('Email send to {}'.format(user['email']))
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) + ' Email send to {} about {}'.format(user['email'], user['title']) + '\n')
+		log.write(str(datetime.date.today()) + ' Email send to {} about {}.'.format(user['email'], user['title']) + '\n')
 		log.close
 	except Exception as e:
 		print('something went wrong')
 		print(e)
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) + 'E mail sending failed: to {} about {}'.format(user['email'], user['title']) + '\n')
+		log.write(str(datetime.date.today()) + 'Email sending failed: to {} about {}.'.format(user['email'], user['title']) + '\n')
 		log.close()
 
 
@@ -329,7 +329,7 @@ while True:
 	print('starting up')
 	log = open('log.txt', 'a')
 	log.write('\n')
-	log.write(str(datetime.date.today()) + ' Preparing for new day:' + '\n')
+	log.write(str(datetime.date.today()) + ' Preparing for new day.' + '\n')
 	log.close()
 	
 
@@ -362,6 +362,6 @@ while True:
 				#log.write(log_data)
 
 	log = open('log.txt', 'a')
-	log.write(str(datetime.date.today()) + ' Finished for today. Send {} emails'.format(str(update_counter)))
+	log.write(str(datetime.date.today()) + ' Finished for today. Send {} emails.'.format(str(update_counter)))
 	log.close()
 	time.sleep(43200) 					        # script sleeps for 24 hourss
