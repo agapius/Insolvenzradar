@@ -179,6 +179,14 @@ def get_pages(URL, payload):
 		pagesNo += 1
 		return pagesNo
 
+def document_insertion_error(error, query):
+
+	doc_name = './error/ERROR_' + str(datetime.datetime.now()) + '.txt'
+	errlog = open(doc_name, 'w+')
+	errlog.write('Insertion error occured' + str(datetime.date.today()) + '\n {} \n {} \n'.format(error, query))
+	errlog.close()
+	return doc_name
+
 
 def insert_into_database(data_from_page):
 	print('insert_into_database')
@@ -192,15 +200,16 @@ def insert_into_database(data_from_page):
 				except Exception as y:
 					print(y)
 					print(query)
+					errlog = document_insertion_error(y, query)
 					log = open('log.txt', 'a')
-					log.write(str(datetime.date.today()) +' Insertion into database failed. Error: {} Query: {}.'.format(y, query) + '\n')
+					log.write(str(datetime.date.today()) +' Insertion into database failed. Error: {} Documentation: {}.\n'.format(y, errlog))
 					log.close()
 			connection.commit()
-		#connection.close()
+			connection.close()
 	except Exception as e:
 		print(e)
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) +' Insertion into database failed (Error Nr. 2).\n')
+		log.write(str(datetime.date.today()) +' Insertion into database failed (outer loop): {}.\n'.format(e))
 		log.close()
 
 
@@ -259,12 +268,12 @@ def get_user_verfahren():
 			
 			cursor.execute("SELECT * FROM post p, user u WHERE p.user_id = u.id") 		#select title,username,email
 			user = cursor.fetchall()
-			#connection.close()
+			connection.close()
 			return user 																#returns a list with all users and their respective verfahren
-	except: 
+	except Exception as e: 
 		print('error: could not get user')
 		log = open('log.txt', 'a')
-		log.write(str(datetime.date.today()) + ' Fechting user failed. \n')
+		log.write(str(datetime.date.today()) + ' Fechting user failed: {}. \n'.format(e))
 		log.close()
 
 def html2pdf(html_content):
@@ -329,7 +338,7 @@ while True:
 	print('starting up')
 	log = open('log.txt', 'a')
 	log.write('\n')
-	log.write(str(datetime.date.today()) + ' Preparing for new day.' + '\n')
+	log.write(str(datetime.datetime.now()) + ' Preparing for new day.' + '\n')
 	log.close()
 	
 
@@ -344,7 +353,7 @@ while True:
 		log = open('log.txt', 'a')
 		log.write(str(datetime.date.today()) + ' Nothing found today. Closing down.\n')
 		log.close()
-		time.sleep(43200)
+		time.sleep(86400)
 		continue
 
 	update_counter = 0
@@ -362,6 +371,6 @@ while True:
 				#log.write(log_data)
 
 	log = open('log.txt', 'a')
-	log.write(str(datetime.date.today()) + ' Finished for today. Send {} emails.'.format(str(update_counter)))
+	log.write(str(datetime.date.today()) + ' Finished for today. Send {} emails.\n'.format(str(update_counter)))
 	log.close()
-	time.sleep(43200) 					        # script sleeps for 24 hourss
+	time.sleep(86400) 					        # script sleeps for 24 hourss
