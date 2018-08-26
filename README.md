@@ -6,22 +6,15 @@
   *creates and saves user generated insolvenzPosts
 # logic
   *working scraper for insolvenzanzeigen.de
-  *did finish a little early and scraped only 95% - needs a reliability check - catch exceptions
-  *core of the programm - needs to be doubled up 
   *have both scrapers run frequently (implement with time - Monday morning?)
   *fill database and have main page recognize successful finds
 # run
   *if executed, runs the whole program
-  *On sever/localhost execute: python3 run.py on
+  *On sever/localhost execute: (env) python scripty_mysql.py & exit
 
 ### Coding
-1. Regularly compare abbonierte Insolvenzverfahren with database (daily)
-2. Scraper muss auch Verfahrensinhalt scrapen (fertig)
-3. bei der abfrage ob abbonierte registernummern in der datenbank sind, muss gefragt werden ob die abbonierten registernummern im full string/ in der registernummer enthalten sind (Problemfall bsp.: 810 IN 161/12 K-1-1)
-3. Email an Kunde: Verfahrensupdate muss gestyled werden
-4. Wie können wir die email über smtplib abschicken
-5. python script muss stringent im Hintergrund laufen
-6. export clrear text passwords to environment variables! 
+1. bei der abfrage ob abbonierte registernummern in der datenbank sind, muss gefragt werden ob die abbonierten registernummern im full string/ in der registernummer enthalten sind (Problemfall bsp.: 810 IN 161/12 K-1-1)
+2. export clrear text passwords to environment variables! 
 
 ### Social
 1. Talk to Schoch about the Wettbewerb and get contact details to secretary
