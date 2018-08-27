@@ -10,12 +10,12 @@ import pdfkit
 
 
 # Connect to the database
-#connection = pymysql.connect(host='localhost',
+'''connection = pymysql.connect(host='localhost',
                              user='inso',
                              password='1nsovenzrecht',
                              db='insodata',
                              charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+                             cursorclass=pymysql.cursors.DictCursor)'''
 
 
 # this script is constantly running. it mainy builds on the inso.py
