@@ -10,7 +10,7 @@ import pdfkit
 
 
 # Connect to the database
-connection = pymysql.connect(host='localhost',
+#connection = pymysql.connect(host='localhost',
                              user='inso',
                              password='1nsovenzrecht',
                              db='insodata',
@@ -191,6 +191,18 @@ def document_insertion_error(error, query):
 def insert_into_database(data_from_page):
 	print('insert_into_database')
 	try:
+		connection = pymysql.connect(host='localhost',
+	                             user='inso',
+	                             password='1nsovenzrecht',
+	                             db='insodata',
+	                             charset='utf8mb4',
+	                             cursorclass=pymysql.cursors.DictCursor)
+	except Exception as e:
+		print('error: could connect to database')
+		log = open('log.txt', 'a')
+		log.write(str(datetime.date.today()) + ' Failed to connect to database: {}. \n'.format(e))
+		log.close()
+	try:
 		with connection.cursor() as cursor:
 			for verfahren in data_from_page:
 				query = "INSERT INTO inso (regno, datum, inhaber, ort, link, full_string, bekanntmachung) VALUES (\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')".format(verfahren[0], verfahren[1], verfahren[2], verfahren[3], verfahren[4], verfahren[5], verfahren[6])
@@ -263,6 +275,19 @@ def scrape_and_update_database(day, month, year):
 def get_user_verfahren():
 	print('get_user_verfahren')
 	#database_location = '/Users/Niklas/Desktop/Code/inso/inso/site.db'
+	try:
+		connection = pymysql.connect(host='localhost',
+	                             user='inso',
+	                             password='1nsovenzrecht',
+	                             db='insodata',
+	                             charset='utf8mb4',
+	                             cursorclass=pymysql.cursors.DictCursor)
+	except Exception as e:
+		print('error: could connect to database')
+		log = open('log.txt', 'a')
+		log.write(str(datetime.date.today()) + ' Failed to connect to database: {}. \n'.format(e))
+		log.close()
+
 	try:
 		with connection.cursor() as cursor:
 			
