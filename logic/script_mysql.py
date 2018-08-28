@@ -93,6 +93,8 @@ def get_inhaber(item):
 	text = re.split(",",beschreibung)
 	if re.search(gesellschaften_pattern,text[0].lower()):
 		inhaber = text[0]
+		if len(inhaber) > 100:
+			inhaber = inhaber[:100]
 	else:
 		inhaber = text[0]+text[1]
 		if len(inhaber) > 100:
@@ -183,7 +185,7 @@ def document_insertion_error(error, query):
 
 	doc_name = './error/ERROR_' + str(datetime.datetime.now()) + '.txt'
 	errlog = open(doc_name, 'w+')
-	errlog.write('Insertion error occured' + str(datetime.date.today()) + '\n {} \n {} \n'.format(error, query))
+	errlog.write('Insertion error occured ' + str(datetime.date.today()) + '\n {} \n {} \n'.format(error, query))
 	errlog.close()
 	return doc_name
 
