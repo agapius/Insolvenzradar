@@ -1,7 +1,7 @@
 # Insolvenzradar
 
-![alt text](https://imgur.com/a/4hwrEhF)
-<img src="https://imgur.com/a/4hwrEhF">
+![alt text](https://im.ezgif.com/tmp/ezgif-1-edc49e5bee74.gif)
+<img src="https://im.ezgif.com/tmp/ezgif-1-edc49e5bee74.gif">
 
 Auf www.insolvenzbekanntmachungen.de veröffentlichen die Insolvenzgerichte Bekanntmachungen in Insolvenzverfahren. Diese öffentliche Bekanntmachung erfolgt gemäß § 9 Abs. 1 InsO und setzt die zweiwöchige Beschwerdefrist in Gang. Insolvenzverwalter oder rechtlicher Vertreter in einem Insolvenzverfahren müssen die Website also regelmäßig (mindestens einmal pro Woche) hinsichtlich aller betreuter Verfahren überprüfen. Dies geschieht in vielen Kanzleien durch eine Sekretärin oder einen wissenschaftlichen Mitarbeiter.   
 Der Insolvenzradar (abrufbar unter www.q-labs.io) nimmt diese Arbeit komplett ab. Die betreuten Verfahren werden einmal eingegeben. Danach werden täglich alle neuen Bekanntmachungen geprüft und der Benutzer wird E-mail benachrichtigt, sobald es eine Bekanntmachung für eines der abonnierten Verfahren gibt.  
