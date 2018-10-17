@@ -1,6 +1,5 @@
 # Insolvenzradar
 
-![alt text](https://im.ezgif.com/tmp/ezgif-1-edc49e5bee74.gif)
 <img src="https://im.ezgif.com/tmp/ezgif-1-edc49e5bee74.gif">
 
 Auf www.insolvenzbekanntmachungen.de veröffentlichen die Insolvenzgerichte Bekanntmachungen in Insolvenzverfahren. Diese öffentliche Bekanntmachung erfolgt gemäß § 9 Abs. 1 InsO und setzt die zweiwöchige Beschwerdefrist in Gang. Insolvenzverwalter oder rechtlicher Vertreter in einem Insolvenzverfahren müssen die Website also regelmäßig (mindestens einmal pro Woche) hinsichtlich aller betreuter Verfahren überprüfen. Dies geschieht in vielen Kanzleien durch eine Sekretärin oder einen wissenschaftlichen Mitarbeiter.   
