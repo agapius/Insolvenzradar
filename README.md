@@ -26,11 +26,6 @@ Der Insolvenzradar (abrufbar unter www.q-labs.io) nimmt diese Arbeit komplett ab
 
 # Todo:
 
-## Coding
-1. Stop running page in Developer Mode
-2. export clear text passwords for email client to environment variables! 
-3. define additional functionality
-
 ### future research
 1. prevent blocking by IP rotating (https://www.scrapehero.com/how-to-rotate-proxies-and-ip-addresses-using-python-3/)
 2. More relevant Email with:
