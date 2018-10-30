@@ -5,7 +5,7 @@ Auf www.insolvenzbekanntmachungen.de veröffentlichen die Insolvenzgerichte Beka
 Der Insolvenzradar (abrufbar unter www.q-labs.io) nimmt diese Arbeit komplett ab. Die betreuten Verfahren werden einmal eingegeben. Danach werden täglich alle neuen Bekanntmachungen geprüft und der Benutzer wird E-mail benachrichtigt, sobald es eine Bekanntmachung für eines der abonnierten Verfahren gibt.  
 
 
-<img src="https://im.ezgif.com/tmp/ezgif-1-edc49e5bee74.gif">
+<img src="https://s2.gifyu.com/images/ezgif-1-edc49e5bee74.gif">
 
 
 # Technical Components:
